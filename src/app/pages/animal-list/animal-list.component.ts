@@ -1,20 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { AnimalService } from '../../services/animal.service';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-animal-list',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule], // fontos az ngFor miatt
   templateUrl: './animal-list.component.html',
-  styleUrl: './animal-list.component.scss'
+  styleUrls: ['./animal-list.component.scss']
 })
-export class AnimalListComponent implements OnInit {
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
-
- 
-
-  
-
-
+export class AnimalListComponent {
+  animals = [
+    {
+      name: 'Cirmi',
+      description: 'Barátságos nőstény cica.',
+      image: 'https://placekitten.com/300/200'
+    },
+    {
+      name: 'Buksi',
+      description: 'Vidám és aktív keverék kutya.',
+      image: 'https://placedog.net/300/200?id=2'
+    }
+  ];
 }

@@ -1,0 +1,15 @@
+<div class="favorites-page">
+    <h2>Kedvenceid</h2>
+  
+    <p *ngIf="favorites.length === 0">Még nem jelöltél meg egyetlen kedvencet sem.</p>
+  
+    <div class="favorites-grid" *ngIf="favorites.length > 0">
+      <div class="animal-card" *ngFor="let fav of favorites">
+        <img [src]="fav.image" [alt]="fav.name" />
+        <h3>{{ fav.name }}</h3>
+        <p>{{ fav.description }}</p>
+        <button>Részletek</button>
+      </div>
+    </div>
+  </div>
+  

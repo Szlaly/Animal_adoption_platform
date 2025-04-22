@@ -6,6 +6,9 @@ import { AnimalListComponent } from './pages/animal-list/animal-list.component';
 import { AnimalDetailComponent } from './pages/animal-detail/animal-detail.component';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { AppointmentComponent } from './pages/appointment/appointment.component';
+import { FavoritesComponent } from './pages/favorites/favorites.component';
+import { SupportComponent } from './pages/support/support.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -14,5 +17,8 @@ export const routes: Routes = [
   { path: 'animals', component: AnimalListComponent },
   { path: 'animals/:id', component: AnimalDetailComponent },
   { path: 'profile', component: UserProfileComponent },
+  { path: 'appointment', component: AppointmentComponent },
+  { path: 'favorites', component: FavoritesComponent },
+  { path: 'support', component: SupportComponent },
   { path: 'admin', component: AdminDashboardComponent },
 ];

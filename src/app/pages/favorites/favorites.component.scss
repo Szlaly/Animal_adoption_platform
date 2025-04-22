@@ -1,9 +1,9 @@
-.animal-list-page {
+.favorites-page {
     padding: 40px 20px;
     text-align: center;
   }
   
-  .animal-grid {
+  .favorites-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -12,12 +12,11 @@
   }
   
   .animal-card {
-    width: 280px;
+    width: 260px;
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     padding: 15px;
-    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   }
   
   .animal-card img {
@@ -31,7 +30,7 @@
   
   .animal-card p {
     font-size: 0.9rem;
-    color: #666;
+    color: #555;
   }
   
   .animal-card button {
