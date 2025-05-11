@@ -1,24 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { AnimalService, Animal } from '../../services/animal.service';
 
 @Component({
   selector: 'app-animal-list',
   standalone: true,
-  imports: [CommonModule], // fontos az ngFor miatt
+  imports: [CommonModule,RouterModule],
   templateUrl: './animal-list.component.html',
   styleUrls: ['./animal-list.component.scss']
 })
-export class AnimalListComponent {
-  animals = [
-    {
-      name: 'Cirmi',
-      description: 'Barátságos nőstény cica.',
-      image: 'https://placekitten.com/300/200'
-    },
-    {
-      name: 'Buksi',
-      description: 'Vidám és aktív keverék kutya.',
-      image: 'https://placedog.net/300/200?id=2'
-    }
-  ];
+export class AnimalListComponent implements OnInit {
+  animals: Animal[] = [];
+
+  constructor(private animalService: AnimalService) {}
+
+  ngOnInit() {
+    this.animalService.getAnimals().subscribe({
+      next: (data) => {
+        this.animals = data;
+      },
+      error: (err) => {
+        console.error('Állatok betöltése sikertelen:', err);
+      }
+    });
+  }
 }

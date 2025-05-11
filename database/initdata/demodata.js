@@ -18,7 +18,7 @@ db.animals.insertMany([
     description: "Barátságos, aktív kutya.",
     health: "oltva, féregtelenítve",
     likedBy: [],
-    imageUrl: "https://example.com/bodri.jpg"
+    imageUrl: "https://placedog.net/300/200?id=1"
   },
   {
     name: "Cirmi",

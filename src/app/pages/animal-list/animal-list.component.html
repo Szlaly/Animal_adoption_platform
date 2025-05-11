@@ -1,11 +1,13 @@
 <div class="animal-list-page">
   <h2>Összes örökbefogadható állat</h2>
   <div class="animal-grid">
-    <div class="animal-card" *ngFor="let animal of animals">
-      <img [src]="animal.image" [alt]="animal.name" />
-      <h3>{{ animal.name }}</h3>
-      <p>{{ animal.description }}</p>
-      <button>Részletek</button>
-    </div>
+    <!-- animal-list.component.html -->
+<div class="animal-card" *ngFor="let animal of animals">
+  <img [src]="animal.imageUrl" [alt]="animal.name" />
+  <h3>{{ animal.name }}</h3>
+  <p>{{ animal.description }}</p>
+  <button [routerLink]="['/animals', animal._id]">Részletek</button>
+</div>
+
   </div>
 </div>

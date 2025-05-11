@@ -1,1 +1,13 @@
-<p>animal-detail works!</p>
+<div *ngIf="animal; else loading" class="animal-detail">
+  <h2>{{ animal.name }}</h2>
+  <img [src]="animal.imageUrl" [alt]="animal.name" />
+  <p><strong>Faj:</strong> {{ animal.species }}</p>
+  <p><strong>Fajta:</strong> {{ animal.breed }}</p>
+  <p><strong>Kor:</strong> {{ animal.age }} év</p>
+  <p><strong>Leírás:</strong> {{ animal.description }}</p>
+  <p><strong>Egészségi állapot:</strong> {{ animal.health }}</p>
+</div>
+
+<ng-template #loading>
+  <p>Betöltés...</p>
+</ng-template>
