@@ -1,6 +1,6 @@
 // src/app/services/animal.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Animal {
@@ -26,8 +26,15 @@ export class AnimalService {
   getAnimals(): Observable<Animal[]> {
     return this.http.get<Animal[]>(this.baseUrl);
   }
+addAnimal(animal: Animal, token: string): Observable<Animal> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); // Token hozzáadása a fejléchez
+
+    return this.http.post<Animal>(this.baseUrl, animal, { headers });
+  }
 
   getAnimalById(id: string): Observable<Animal> {
     return this.http.get<Animal>(`${this.baseUrl}/${id}`);
   }
+  
+
 }

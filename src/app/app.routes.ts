@@ -9,12 +9,15 @@ import { UserProfileComponent } from './pages/user-profile/user-profile.componen
 import { AppointmentComponent } from './pages/appointment/appointment.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { SupportComponent } from './pages/support/support.component';
+import { AddAnimalComponent } from './pages/add-animal/add-animal.component';
+
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'animals', component: AnimalListComponent },
+  { path: 'animals/new', component: AddAnimalComponent },
   { path: 'animals/:id', component: AnimalDetailComponent },
   { path: 'profile', component: UserProfileComponent },
   { path: 'appointment', component: AppointmentComponent },

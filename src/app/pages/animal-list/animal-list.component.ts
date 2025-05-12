@@ -1,19 +1,25 @@
+// src/app/pages/animal-list/animal-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AnimalService, Animal } from '../../services/animal.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-animal-list',
   standalone: true,
-  imports: [CommonModule,RouterModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './animal-list.component.html',
   styleUrls: ['./animal-list.component.scss']
 })
 export class AnimalListComponent implements OnInit {
   animals: Animal[] = [];
 
-  constructor(private animalService: AnimalService) {}
+  constructor(
+    private animalService: AnimalService,
+    public authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.animalService.getAnimals().subscribe({
@@ -24,5 +30,9 @@ export class AnimalListComponent implements OnInit {
         console.error('Állatok betöltése sikertelen:', err);
       }
     });
+  }
+
+  goToAddAnimal() {
+    this.router.navigate(['/animals/new']);
   }
 }

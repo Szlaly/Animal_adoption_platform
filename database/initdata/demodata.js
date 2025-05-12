@@ -4,7 +4,7 @@ db = db.getSiblingDB('menhely'); // adatbázis kiválasztása vagy létrehozása
 db.users.insertOne({
   name: "Admin Felhasználó",
   email: "admin@menhely.hu",
-  passwordHash: "demo-hash", // ide jelszó hash is jöhet, ha előre legyártod
+  password: "$2b$10$lyXAK6wVSVGi4MhFb746Qu8FKJYlaWofyImsRj1GvwWhF1BWLKKFC", //admin123
   role: "admin"
 });
 

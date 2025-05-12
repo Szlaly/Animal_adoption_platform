@@ -5,7 +5,7 @@ import { FavoritesComponent } from './pages/favorites/favorites.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,RouterModule],
+  imports: [RouterOutlet, RouterModule],  // RouterModule biztosítása
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

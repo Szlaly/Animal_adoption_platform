@@ -22,11 +22,12 @@ export class AuthService {
       password
     });
   }
+
   login(email: string, password: string) {
-  return this.http.post<{ token: string; user: any }>(`${this.baseUrl}/login`, {
-    email,
-    password
-  }).pipe(
+    return this.http.post<{ token: string; user: any }>(`${this.baseUrl}/login`, {
+      email,
+      password
+    }).pipe(
       tap((res) => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('user', JSON.stringify(res.user));
@@ -39,10 +40,17 @@ export class AuthService {
     return this._currentUser;
   }
 
+  getRole(): string {
+    return this._currentUser?.role || 'guest';
+  }
+
+  isAdmin(): boolean {
+    return this.getRole() === 'admin';
+  }
+
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     this._currentUser = null;
   }
 }
-
