@@ -21,9 +21,14 @@ export const createAnimal = async (req: Request, res: Response) => {
 };
 
 export const updateAnimal = async (req: Request, res: Response): Promise<any> => {
-  const updated = await Animal.findByIdAndUpdate(req.params.id, req.body, { new: true });
-  if (!updated) return res.status(404).send("Nem található");
-  res.json(updated);
+  try {
+    const updated = await Animal.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!updated) return res.status(404).send("Állat nem található");
+    res.json(updated);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Hiba történt az állat adatainak frissítésekor");
+  }
 };
 
 export const deleteAnimal = async (req: Request, res: Response): Promise<any> => {

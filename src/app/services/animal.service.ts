@@ -50,6 +50,10 @@ getFavorites(token: string) {
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
   return this.http.get<any>(`http://localhost:5000/api/users/favorites`, { headers });
 }
-
+updateAnimal(id: string, updatedData: Partial<Animal>): Observable<Animal> {
+  const token = localStorage.getItem('token') || '';
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.put<Animal>(`${this.baseUrl}/${id}`, updatedData, { headers });
+}
 
 }

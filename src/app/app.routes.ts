@@ -11,6 +11,7 @@ import { AdoptionRequestComponent } from './pages/adoption-request/adoption-requ
 import { inject } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
+import { AnimalEditComponent } from './pages/edit-animal/edit-animal.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -19,6 +20,7 @@ export const routes: Routes = [
     { path: 'adoption-request', component: AdoptionRequestComponent }, 
     { path: 'animals', component: AnimalListComponent },
     { path: 'animals/new', component: AddAnimalComponent },
+    { path: 'animals/edit/:id', component: AnimalEditComponent },
     { path: 'animals/:id', component: AnimalDetailComponent },
     {
         path: 'profile',

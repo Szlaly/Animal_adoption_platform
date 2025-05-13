@@ -1,25 +1,26 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AnimalService } from '../../services/animal.service';
-import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-animal-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule],
   templateUrl: './animal-detail.component.html',
-  styleUrl: './animal-detail.component.scss'
+  styleUrls: ['./animal-detail.component.scss']
 })
 export class AnimalDetailComponent {
   private route = inject(ActivatedRoute);
   private animalService = inject(AnimalService);
   private authService = inject(AuthService);
+  private router = inject(Router);
 
   animal: any = null;
   token: string | null = null;
   isFavorite: boolean = false;
+  isAdmin: boolean = false;  // Admin jogosultság jelzése
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -30,6 +31,7 @@ export class AnimalDetailComponent {
         next: (data) => {
           this.animal = data;
           this.checkIfFavorite();
+          this.checkIfAdmin();  // Admin jogosultság ellenőrzése
         },
         error: (err) => console.error('Hiba állat lekérdezésénél:', err)
       });
@@ -70,5 +72,19 @@ export class AnimalDetailComponent {
 
   isLoggedIn() {
     return !!this.token;
+  }
+
+  // Admin jogosultság ellenőrzése
+  checkIfAdmin() {
+    this.isAdmin = this.authService.isAdmin(); // Itt közvetlenül hívjuk meg az isAdmin() metódust
+  }
+
+  // Admin szerkesztési oldalra navigálás
+  editAnimal() {
+    if (this.isAdmin) {
+      this.router.navigate(['/animals/edit', this.animal._id]);
+    } else {
+      console.error('Admin jogosultság szükséges a szerkesztéshez.');
+    }
   }
 }
