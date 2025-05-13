@@ -6,6 +6,10 @@
   <p><strong>Kor:</strong> {{ animal.age }} év</p>
   <p><strong>Leírás:</strong> {{ animal.description }}</p>
   <p><strong>Egészségi állapot:</strong> {{ animal.health }}</p>
+
+  <button *ngIf="isLoggedIn()" (click)="toggleFavorite()">
+    {{ isFavorite ? '💔 Eltávolítás a kedvencekből' : '❤️ Hozzáadás a kedvencekhez' }}
+  </button>
 </div>
 
 <ng-template #loading>

@@ -4,24 +4,56 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { AnimalListComponent } from './pages/animal-list/animal-list.component';
 import { AnimalDetailComponent } from './pages/animal-detail/animal-detail.component';
-import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
-import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { AppointmentComponent } from './pages/appointment/appointment.component';
-import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { SupportComponent } from './pages/support/support.component';
 import { AddAnimalComponent } from './pages/add-animal/add-animal.component';
-
+import { AdoptionRequestComponent } from './pages/adoption-request/adoption-request.component';
+import { inject } from '@angular/core';
+import { AuthService } from './services/auth.service';
+import { Router } from '@angular/router';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'animals', component: AnimalListComponent },
-  { path: 'animals/new', component: AddAnimalComponent },
-  { path: 'animals/:id', component: AnimalDetailComponent },
-  { path: 'profile', component: UserProfileComponent },
-  { path: 'appointment', component: AppointmentComponent },
-  { path: 'favorites', component: FavoritesComponent },
-  { path: 'support', component: SupportComponent },
-  { path: 'admin', component: AdminDashboardComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
+    { path: 'adoption-request', component: AdoptionRequestComponent }, 
+    { path: 'animals', component: AnimalListComponent },
+    { path: 'animals/new', component: AddAnimalComponent },
+    { path: 'animals/:id', component: AnimalDetailComponent },
+    {
+        path: 'profile',
+        canActivate: [
+            () => {
+                const auth = inject(AuthService);
+                const router = inject(Router);
+                if (auth.currentUser) {
+                    return true;
+                } else {
+                    router.navigate(['/login']);
+                    return false;
+                }
+            }
+        ],
+        loadComponent: () => import('./pages/profile/profile.component').then(m => m.ProfileComponent)
+    },
+    { path: 'appointment', component: AppointmentComponent },
+    { path: 'support', component: SupportComponent },
+    {
+  path: 'admin',
+  canActivate: [
+    () => {
+      const auth = inject(AuthService);
+      const router = inject(Router);
+      const user = auth.currentUser;
+
+      if (user && user.role === 'admin') {
+        return true;
+      } else {
+        router.navigate(['/']); // visszairányítás, ha nem admin
+        return false;
+      }
+    }
+  ],
+  loadComponent: () => import('./pages/admin-dashboard/admin-dashboard.component').then(m => m.AdminDashboardComponent)
+}
 ];

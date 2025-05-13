@@ -26,4 +26,31 @@ export const addFavorite = async (req: Request, res: Response): Promise<any> => 
 
   res.json({ message: "Hozzáadva a kedvencekhez", favorites: user.favorites });
 };
+export const removeFavorite = async (req: Request, res: Response): Promise<any> => {
+  const userId = (req as any).user.id;
+  const animalId = req.params.animalId;
+
+  if (!mongoose.Types.ObjectId.isValid(animalId)) {
+    return res.status(400).json({ message: "Érvénytelen állat ID" });
+  }
+
+  const user = await User.findById(userId);
+  if (!user) return res.status(404).json({ message: "Felhasználó nem található" });
+
+  const animalObjectId = new mongoose.Types.ObjectId(animalId);
+
+  user.favorites = user.favorites.filter(fav => !fav.equals(animalObjectId));
+  await user.save();
+
+  res.json({ message: "Eltávolítva a kedvencekből", favorites: user.favorites });
+};
+export const getFavorites = async (req: Request, res: Response): Promise<any> => {
+  const userId = (req as any).user.id;
+
+  const user = await User.findById(userId).populate("favorites");
+  if (!user) return res.status(404).json({ message: "Felhasználó nem található" });
+
+  res.json({ favorites: user.favorites });
+};
+
 

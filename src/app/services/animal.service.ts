@@ -35,6 +35,21 @@ addAnimal(animal: Animal, token: string): Observable<Animal> {
   getAnimalById(id: string): Observable<Animal> {
     return this.http.get<Animal>(`${this.baseUrl}/${id}`);
   }
-  
+  // src/app/services/animal.service.ts
+addToFavorites(animalId: string, token: string) {
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.post(`http://localhost:5000/api/users/favorites/${animalId}`, {}, { headers });
+}
+
+removeFromFavorites(animalId: string, token: string) {
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.delete(`http://localhost:5000/api/users/favorites/${animalId}`, { headers });
+}
+
+getFavorites(token: string) {
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.get<any>(`http://localhost:5000/api/users/favorites`, { headers });
+}
+
 
 }

@@ -1,1 +1,24 @@
-<p>admin-dashboard works!</p>
+<div class="support-page">
+  <h2>Beérkezett örökbefogadási kérelmek</h2>
+
+  <div *ngFor="let request of adoptionRequests" class="request-card">
+    <p><strong>Felhasználó:</strong> {{ request.user.username }}</p>
+    <p><strong>Email:</strong> {{ request.user.email }}</p>
+    <p><strong>Állat:</strong> {{ request.animal.name }}</p>
+    <p><strong>Dátum:</strong> {{ request.meetingDate | date }}</p>
+    <p><strong>Üzenet:</strong> {{ request.message }}</p>
+    <p><strong>Státusz:</strong> {{ request.status }}</p>
+
+    <label>Státusz módosítása:</label>
+    <select [(ngModel)]="request.status">
+      <option value="pending">Függőben</option>
+      <option value="approved">Jóváhagyva</option>
+      <option value="rejected">Elutasítva</option>
+    </select>
+
+    <button (click)="updateRequestStatus(request._id, request.status, request.meetingDate)">Mentés</button>
+    <hr />
+  </div>
+</div>
+
+    

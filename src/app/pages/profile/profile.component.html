@@ -1,0 +1,23 @@
+<div class="profile-container">
+  <h2>👤 Profilom</h2>
+  
+  <div class="user-info" *ngIf="user">
+    <p><strong>Név:</strong> {{ user.name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Szerepkör:</strong> {{ user.role }}</p>
+  </div>
+
+  <div class="favorites">
+    <h3>❤️ Kedvenc állataim</h3>
+    <div *ngIf="favorites.length > 0; else noFavs">
+      <ul>
+        <li *ngFor="let animal of favorites">
+          <a [routerLink]="['/animals', animal._id]">{{ animal.name }} ({{ animal.species }})</a>
+        </li>
+      </ul>
+    </div>
+    <ng-template #noFavs>
+      <p>Nincsenek még kedvenc állataid.</p>
+    </ng-template>
+  </div>
+</div>

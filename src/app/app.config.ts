@@ -8,6 +8,5 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    //provideHttpClient(withInterceptors([AuthInterceptor])),  // Az interceptor közvetlenül
   ]
 };
