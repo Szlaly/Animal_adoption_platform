@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AdoptionService, AdoptionRequest } from '../../services/adoption.service';
+import { SupportService, SupportRequest } from '../../services/support.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -12,12 +13,17 @@ import { AdoptionService, AdoptionRequest } from '../../services/adoption.servic
 })
 export class AdminDashboardComponent implements OnInit {
   adoptionRequests: AdoptionRequest[] = [];
+  supportRequests: SupportRequest[] = [];
   errorMessage: string = '';
 
-  constructor(private adoptionService: AdoptionService) {}
+  constructor(
+    private adoptionService: AdoptionService,
+    private supportService: SupportService
+  ) {}
 
   ngOnInit() {
     this.fetchAdoptionRequests();
+    this.fetchSupportRequests();
   }
 
   fetchAdoptionRequests() {
@@ -30,6 +36,16 @@ export class AdminDashboardComponent implements OnInit {
     this.adoptionService.getAllAdoptionRequests(token).subscribe({
       next: (data) => this.adoptionRequests = data,
       error: (err) => this.errorMessage = err.error.message || 'Hiba történt a kérelmek lekérésekor.'
+    });
+  }
+
+  fetchSupportRequests() {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    this.supportService.getAllSupportRequests(token).subscribe({
+      next: (data) => this.supportRequests = data,
+      error: (err) => console.error('Support kérdések lekérdezési hiba:', err)
     });
   }
 

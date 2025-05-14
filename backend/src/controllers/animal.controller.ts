@@ -2,6 +2,7 @@
 
 import { Request, Response } from "express";
 import { Animal } from "../models/animal.model";
+import { Adoption } from "../models/adoption.model";
 
 export const getAllAnimals = async (req: Request, res: Response) => {
   const animals = await Animal.find();
@@ -31,8 +32,22 @@ export const updateAnimal = async (req: Request, res: Response): Promise<any> =>
   }
 };
 
-export const deleteAnimal = async (req: Request, res: Response): Promise<any> => {
-  const deleted = await Animal.findByIdAndDelete(req.params.id);
-  if (!deleted) return res.status(404).send("Nem található");
-  res.sendStatus(204);
+export const deleteAnimal = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    // Töröld az állatot
+    const deletedAnimal = await Animal.findByIdAndDelete(id);
+
+    if (!deletedAnimal) {
+      return res.status(404).json({ message: 'Állat nem található' });
+    }
+
+    // Töröld az állathoz tartozó örökbefogadási kérelmeket
+    await Adoption.deleteMany({ animal: id }); // ← helyes használat
+
+    res.status(200).json({ message: 'Állat és a kapcsolódó kérelmek törölve' });
+  } catch (error) {
+    res.status(500).json({ message: 'Hiba az állat törlése közben', error });
+  }
 };

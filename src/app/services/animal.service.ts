@@ -55,5 +55,9 @@ updateAnimal(id: string, updatedData: Partial<Animal>): Observable<Animal> {
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
   return this.http.put<Animal>(`${this.baseUrl}/${id}`, updatedData, { headers });
 }
-
+deleteAnimal(id: string): Observable<any> {
+  const token = localStorage.getItem('token') || '';
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.delete(`${this.baseUrl}/${id}`, { headers });
+}
 }

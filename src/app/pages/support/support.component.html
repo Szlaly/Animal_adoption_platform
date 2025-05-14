@@ -1,21 +1,20 @@
 <div class="support-page">
-    <h2>Segítség kérés örökbefogadott állatokhoz</h2>
-    <p>
-      Ha kérdésed van az örökbefogadott kisállatoddal kapcsolatban, itt tudsz segítséget kérni.
-      Töltsd ki az alábbi űrlapot, és munkatársaink a lehető leghamarabb felveszik veled a kapcsolatot.
-    </p>
-  
-    <form>
-      <label for="name">Neved</label>
-      <input type="text" id="name" />
-  
-      <label for="animalName">Állat neve</label>
-      <input type="text" id="animalName" />
-  
-      <label for="issue">Probléma leírása</label>
-      <textarea id="issue" rows="5"></textarea>
-  
-      <button type="submit">Segítség kérése</button>
-    </form>
+  <h2>🛠️ Support</h2>
+  <p>Ha kérdésed van vagy problémába ütköztél, írj nekünk!</p>
+
+  <form (ngSubmit)="submitSupportRequest()">
+    <input type="text" [(ngModel)]="subject" name="subject" placeholder="Tárgy" required />
+    <textarea [(ngModel)]="message" name="message" placeholder="Üzenet" rows="4" required></textarea>
+    <button type="submit">Küldés</button>
+  </form>
+
+  <div *ngIf="userSupportRequests.length > 0" class="previous-supports">
+    <h3>📬 Korábbi kérdéseid</h3>
+    <div *ngFor="let req of userSupportRequests" class="request-card">
+      <p><strong>Tárgy:</strong> {{ req.subject }}</p>
+      <p><strong>Üzenet:</strong> {{ req.message }}</p>
+      <p><strong>Dátum:</strong> {{ req.createdAt | date:'mediumDate' }}</p>
+      <p><strong>Státusz:</strong> {{ req.status }}</p>
+    </div>
   </div>
-  
+</div>

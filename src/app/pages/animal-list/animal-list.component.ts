@@ -35,4 +35,17 @@ export class AnimalListComponent implements OnInit {
   goToAddAnimal() {
     this.router.navigate(['/animals/new']);
   }
+  deleteAnimal(animalId: string) {
+  if (confirm('Biztosan törölni szeretnéd ezt az állatot?')) {
+    this.animalService.deleteAnimal(animalId).subscribe({
+      next: () => {
+        this.animals = this.animals.filter(a => a._id !== animalId);
+      },
+      error: (err) => {
+        console.error('Hiba történt a törlés során:', err);
+      }
+    });
+  }
+}
+
 }

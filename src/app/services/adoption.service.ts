@@ -6,7 +6,7 @@ export interface AdoptionRequest {
   animal: {
     _id: string;
     name: string;
-    
+    species?: string;
     // ha kell, ide még lehet tenni mást is (pl. faj, kép)
   };
   user: {
@@ -45,4 +45,10 @@ updateAdoptionStatus(id: string, updateData: any, token: string) {
     headers: { Authorization: `Bearer ${token}` }
   });
 }
+getMyAdoptionRequests(token: string): Observable<AdoptionRequest[]> {
+  return this.http.get<AdoptionRequest[]>(`${this.apiUrl}/me`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+}
+
 }

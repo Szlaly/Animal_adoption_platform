@@ -10,6 +10,12 @@
       <h3>{{ animal.name }}</h3>
       <p>{{ animal.description }}</p>
       <button [routerLink]="['/animals', animal._id]">Részletek</button>
+      <button
+  *ngIf="authService.isAdmin() && animal._id"
+  (click)="deleteAnimal(animal._id!)">
+  ❌ Törlés
+</button>
+
     </div>
   </div>
 </div>

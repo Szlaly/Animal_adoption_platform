@@ -1,6 +1,6 @@
 <div class="profile-container">
   <h2>👤 Profilom</h2>
-  
+
   <div class="user-info" *ngIf="user">
     <p><strong>Név:</strong> {{ user.name }}</p>
     <p><strong>Email:</strong> {{ user.email }}</p>
@@ -18,6 +18,21 @@
     </div>
     <ng-template #noFavs>
       <p>Nincsenek még kedvenc állataid.</p>
+    </ng-template>
+  </div>
+
+  <div class="adoption-requests">
+    <h3>📄 Örökbefogadási kérelmeim</h3>
+    <div *ngIf="adoptionRequests.length > 0; else noRequests">
+      <div *ngFor="let request of adoptionRequests" class="request-card">
+        <p><strong>Állat:</strong> {{ request.animal?.name }}</p>
+        <p><strong>Üzenet:</strong> {{ request.message }}</p>
+        <p><strong>Találkozó dátuma:</strong> {{ request.meetingDate ? (request.meetingDate | date:'mediumDate') : 'Még nincs egyeztetve' }}</p>
+        <p><strong>Státusz:</strong> {{ request.status }}</p>
+      </div>
+    </div>
+    <ng-template #noRequests>
+      <p>Még nem küldtél be örökbefogadási kérelmet.</p>
     </ng-template>
   </div>
 </div>

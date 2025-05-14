@@ -1,24 +1,42 @@
-<div class="support-page">
-  <h2>Beérkezett örökbefogadási kérelmek</h2>
 
-  <div *ngFor="let request of adoptionRequests" class="request-card">
-    <p><strong>Felhasználó:</strong> {{ request.user.username }}</p>
+    <!-- src/app/pages/admin-dashboard/admin-dashboard.component.html -->
+<div class="admin-dashboard">
+  <h2>📋 Örökbefogadási kérelmek</h2>
+
+  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+
+  <div *ngIf="adoptionRequests.length === 0 && !errorMessage">
+    <p>Nincs jelenleg örökbefogadási kérelem.</p>
+  </div>
+
+  <div *ngFor="let request of adoptionRequests" class="adoption-card">
+    <p><strong>Állat:</strong> {{ request.animal?.name || 'Ismeretlen állat' }}</p>
+    <p><strong>Faj:</strong> {{ request.animal?.species || '-' }}</p>
+    <p><strong>Jelentkező:</strong> {{ request.user?.username || 'Ismeretlen felhasználó' }}</p>
     <p><strong>Email:</strong> {{ request.user.email }}</p>
-    <p><strong>Állat:</strong> {{ request.animal.name }}</p>
-    <p><strong>Dátum:</strong> {{ request.meetingDate | date }}</p>
-    <p><strong>Üzenet:</strong> {{ request.message }}</p>
+    <p><strong>Üzenet:</strong> {{ request.message || '-' }}</p>
     <p><strong>Státusz:</strong> {{ request.status }}</p>
 
-    <label>Státusz módosítása:</label>
-    <select [(ngModel)]="request.status">
-      <option value="pending">Függőben</option>
-      <option value="approved">Jóváhagyva</option>
-      <option value="rejected">Elutasítva</option>
-    </select>
+    <label>Találkozó időpontja:</label>
+    <input type="datetime-local" [(ngModel)]="request.meetingDate" />
 
-    <button (click)="updateRequestStatus(request._id, request.status, request.meetingDate)">Mentés</button>
-    <hr />
+    <button (click)="updateRequestStatus(request._id, 'approved', request.meetingDate)">✔️ Jóváhagyás</button>
+    <button (click)="updateRequestStatus(request._id, 'rejected')">❌ Elutasítás</button>
   </div>
 </div>
+<div class="support-requests">
+  <h3>🛠️ Beérkezett support kérések</h3>
+  <div *ngIf="supportRequests.length > 0; else noSupport">
+    <div *ngFor="let req of supportRequests" class="request-card">
+      <p><strong>Felhasználó:</strong> {{ req.user?.name }} ({{ req.user?.email }})</p>
+      <p><strong>Tárgy:</strong> {{ req.subject }}</p>
+      <p><strong>Üzenet:</strong> {{ req.message }}</p>
+      <p><strong>Dátum:</strong> {{ req.createdAt | date:'mediumDate' }}</p>
+      <p><strong>Státusz:</strong> {{ req.status }}</p>
+    </div>
+  </div>
+  <ng-template #noSupport>
+    <p>Még nem érkezett support kérés.</p>
+  </ng-template>
+</div>
 
-    

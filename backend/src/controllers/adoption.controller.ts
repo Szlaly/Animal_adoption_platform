@@ -2,22 +2,30 @@ import { Request, Response } from "express";
 import { Adoption } from "../models/adoption.model";
 import mongoose from "mongoose";
 
-export const getAllAdoptions = async (_req: Request, res: Response) => {
+// src/controllers/adoption.controller.ts
+export const getAllAdoptions = async (req: Request, res: Response) => {
   try {
-    // A populate biztosítja, hogy a user és animal objektumok is be legyenek töltve
     const adoptions = await Adoption.find()
-      .populate("user")  // Betölti a teljes user objektumot
-      .populate("animal") // Betölti az állat objektumot
+      .populate('user', 'name email')       // csak a name és email mezőket kérjük le
+      .populate('animal', 'name species');  // csak a name és species mezőket
 
-    // Most már közvetlenül hozzáférhetünk a user email mezőjéhez
     res.json(adoptions);
-  } catch (error) {
-    res.status(500).json({ message: "Hiba történt a kérelmek lekérésekor.", error });
+  } catch (err) {
+    res.status(500).json({ message: 'Hiba az örökbefogadási kérelmek lekérdezésekor', error: err });
   }
 };
 
 
+export const getMyAdoptions = async (req: Request, res: Response) => {
+  const userId = (req as any).user.id;
 
+  try {
+    const adoptions = await Adoption.find({ user: userId }).populate("animal");
+    res.json(adoptions);
+  } catch (error) {
+    res.status(500).json({ message: "Hiba történt a saját kérelmek lekérésekor.", error });
+  }
+};
 
 export const updateAdoptionStatus = async (req: Request, res: Response): Promise<any> => {
   const { status, meetingDate } = req.body;
@@ -35,13 +43,12 @@ export const updateAdoptionStatus = async (req: Request, res: Response): Promise
 
 export const submitAdoptionRequest = async (req: Request, res: Response): Promise<any> => {
   const userId = (req as any).user.id;
-  const { animalId, message, email, name } = req.body; // Az email és name mezők hozzáadása
+  const { animalId, message, email, name } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(animalId)) {
     return res.status(400).json({ message: "Érvénytelen állat ID" });
   }
 
-  // Ellenőrizzük, hogy az email és a név létezik-e
   if (!email || !name) {
     return res.status(400).json({ message: "Hiányzó név vagy email" });
   }
@@ -52,8 +59,8 @@ export const submitAdoptionRequest = async (req: Request, res: Response): Promis
       animal: animalId,
       message,
       status: "pending",
-      email,   // Az email hozzáadása
-      name,    // A név hozzáadása
+      email,
+      name,
     });
 
     await adoption.save();
