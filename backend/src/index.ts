@@ -9,6 +9,7 @@ import authRoutes from "./routes/auth.routes";
 import userRoutes from "./routes/user.routes";
 import adoptionRoutes from "./routes/adoption.routes";
 import supportRoutes from './routes/support.routes';
+import path from 'path';
 
 
 dotenv.config();
@@ -23,6 +24,8 @@ app.use("/api/animals", animalRoutes);
 app.use("/api/users", userRoutes);
 app.use('/api/support', supportRoutes);
 app.use("/api/adoptions", adoptionRoutes);
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+
 app.get("/", (req, res) => {
   res.send("API működik");
 });

@@ -44,29 +44,16 @@
     </section>
   
     <section class="animals">
-      <h2>Elérhető állatok</h2>
-      <div class="animal-list">
-        <div class="animal-card">
-          <img src="https://placekitten.com/300/200" alt="Cica" />
-          <h3>Cirmi</h3>
-          <p>1 éves nőstény cica, barátságos és játékos.</p>
-          <button>Részletek</button>
-        </div>
-  
-        <div class="animal-card">
-          <img src="https://placedog.net/300/200?id=1" alt="Kutya" />
-          <h3>Buksi</h3>
-          <p>3 éves keverék kutya, hűséges társ és jó házőrző.</p>
-          <button>Részletek</button>
-        </div>
-  
-        <div class="animal-card">
-          <img src="https://placekitten.com/301/200" alt="Cica" />
-          <h3>Mancs</h3>
-          <p>2 éves kandúr cica, szeret aludni és dorombolni.</p>
-          <button>Részletek</button>
-        </div>
-      </div>
-    </section>
+  <h2>Elérhető állatok</h2>
+  <div class="animal-list">
+    <div class="animal-card" *ngFor="let animal of animals | slice:0:3">
+      <img [src]="animal.image || 'https://placekitten.com/300/200'" [alt]="animal.name" />
+      <h3>{{ animal.name }}</h3>
+      <p>{{ animal.age }} éves {{ animal.species }}, {{ animal.description }}</p>
+      <button (click)="viewDetails(animal._id)">Részletek</button>
+    </div>
+  </div>
+</section>
+
   </div>
   

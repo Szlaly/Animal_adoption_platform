@@ -9,7 +9,9 @@ import {
   deleteAnimal
 } from "../controllers/animal.controller";
 import { authenticate, requireAdmin } from "../middleware/auth.middleware";
+import { Animal } from "../models/animal.model";
 const router = express.Router();
+
 
 router.get("/", getAllAnimals);
 router.get("/:id", getAnimalById);

@@ -29,8 +29,12 @@ export class AnimalEditComponent implements OnInit {
     this.form = this.fb.group({
       name: ['', Validators.required],
       species: ['', Validators.required],
+      breed: [''],
       age: ['', [Validators.required, Validators.min(0)]],
-      description: ['']
+      description: [''],
+      health: [''],
+      story: [''],
+      imageUrl: ['']
     });
 
     this.loadAnimal();
@@ -42,8 +46,12 @@ export class AnimalEditComponent implements OnInit {
         this.form.patchValue({
           name: animal.name,
           species: animal.species,
+          breed: animal.breed || '',
           age: animal.age,
-          description: animal.description
+          description: animal.description || '',
+          health: animal.health || '',
+          story: (animal as any).story || '', // story lehet, hogy nincs még a típusban
+          imageUrl: animal.imageUrl || ''
         });
       },
       error: (err) => {

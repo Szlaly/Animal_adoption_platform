@@ -11,6 +11,7 @@ export interface Animal {
   breed: string;
   description: string;
   health: string;
+  story: string;
   likedBy: string[];
   imageUrl: string;
 }

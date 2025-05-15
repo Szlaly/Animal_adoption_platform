@@ -19,6 +19,7 @@ export class AddAnimalComponent {
     breed: '',
     description: '',
     health: '',
+    story: '',
     likedBy: [],
     imageUrl: ''
   };
