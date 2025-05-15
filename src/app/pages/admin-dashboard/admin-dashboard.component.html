@@ -25,33 +25,39 @@
   </div>
 </div>
 <div class="support-requests">
-  <h3>🛠️ Beérkezett support kérések</h3>
+    <h3>🛠️ Beérkezett support kérések</h3>
+    <div *ngIf="supportRequests.length > 0; else noSupport">
+      <div *ngFor="let request of supportRequests" 
+           class="support-request" 
+           [ngClass]="{ 'closed': request.status }">
+        <p><strong>Felhasználó:</strong> {{ request.user?.name }} ({{ request.user?.email }})</p>
+        <p><strong>Tárgy:</strong> {{ request.subject }}</p>
+        <p><strong>Dátum:</strong> {{ request.createdAt | date:'mediumDate' }}</p>
+        <p><strong>Státusz:</strong> {{ request.status }}</p>
 
-  <div *ngIf="supportRequests.length > 0; else noSupport">
-    <div *ngFor="let req of supportRequests" class="support-request">
-      <h4>{{ req.subject }}</h4>
-      <p><strong>Felhasználó:</strong> {{ req.user?.name }} ({{ req.user?.email }})</p>
-      <p><strong>Állapot:</strong> {{ req.status }}</p>
-
-      <div class="messages">
-        <div *ngFor="let msg of req.messages"
-             [ngClass]="{ 'own-message': isOwnMessage(msg.sender._id), 'other-message': !isOwnMessage(msg.sender._id) }">
-          <p><strong>{{ msg.sender.name }}:</strong></p>
-          <p>{{ msg.text }}</p>
-          <p class="timestamp" *ngIf="msg.sentAt">{{ msg.sentAt | date:'short' }}</p>
+        <div class="messages">
+          <div *ngFor="let msg of request.messages" class="message">
+            <p><strong>{{ msg.sender.name }}:</strong> {{ msg.text }}</p>
+            <p class="timestamp">{{ msg.sentAt | date:'short' }}</p>
+          </div>
         </div>
-      </div>
 
-      <div class="reply-form">
-        <textarea [(ngModel)]="newResponse[req._id]" placeholder="Írj választ..."></textarea>
-        <button (click)="sendResponse(req._id)">Válasz küldése</button>
+        <div *ngIf="request.status === 'open' && isAdmin()">
+  <textarea [(ngModel)]="newResponse[request._id]" placeholder="Írj válaszod..."></textarea>
+  <button (click)="sendResponse(request._id)">Válasz küldése</button>
+  <button class="close-button" (click)="closeRequest(request._id)">🔒 Lezárás</button>
+</div>
+
+<div *ngIf="request.status === 'closed'" class="closed-label">
+  🟢 Lezárva
+</div>
+
       </div>
     </div>
+    <ng-template #noSupport>
+      <p>Még nem érkezett support kérés.</p>
+    </ng-template>
   </div>
 
-  <ng-template #noSupport>
-    <p>Még nem érkezett support kérés.</p>
-  </ng-template>
-</div>
 
 

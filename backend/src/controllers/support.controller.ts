@@ -151,6 +151,19 @@ export const addResponseToSupportRequest = async (req: Request, res: Response) =
     res.status(500).json({ message: "Hiba történt a válasz küldésekor." });
   }
 };
+export const closeSupportRequest = async (req: Request, res: Response): Promise<any> => {
+  try {
+    const support = await Support.findByIdAndUpdate(
+      req.params.id,
+      { status: 'closed' }, // EREDMÉNYES: ezt a mezőt ismeri a séma
+      { new: true }
+    );
+    if (!support) return res.status(404).json({ message: 'Support kérés nem található' });
+    res.json(support);
+  } catch (err) {
+    res.status(500).json({ message: 'Hiba a lezárás során' });
+  }
+};
 
 
 

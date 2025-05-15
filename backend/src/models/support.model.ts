@@ -24,7 +24,7 @@ const supportSchema = new mongoose.Schema({
   message: { type: String, required: true },
   status: { type: String, enum: ["open", "closed"], default: "open" },
   createdAt: { type: Date, default: Date.now },
-  messages: [messageSchema]  // ← ide kerülnek a válaszok
+  messages: [messageSchema]
 });
 
 export const Support = mongoose.model("Support", supportSchema);

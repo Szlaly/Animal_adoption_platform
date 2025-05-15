@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { AdoptionService, AdoptionRequest } from '../../services/adoption.service';
 import { SupportService, SupportRequest } from '../../services/support.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -21,7 +22,9 @@ export class AdminDashboardComponent implements OnInit {
 
   constructor(
     private adoptionService: AdoptionService,
-    private supportService: SupportService
+    private supportService: SupportService,
+    private authService: AuthService,
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
@@ -78,6 +81,23 @@ export class AdminDashboardComponent implements OnInit {
       error: (err) => console.error('Válasz küldése hiba:', err)
     });
   }
+closeRequest(requestId: string) {
+  const token = localStorage.getItem('token');
+  if (!token) return;
+
+  this.supportService.closeSupportRequest(requestId, token).subscribe({
+    next: () => {
+      console.log('Lezárva sikeresen');
+      const request = this.supportRequests.find(r => r._id === requestId);
+      if (request) {
+        request.status = 'closed';
+      }
+    },
+    error: (err) => {
+      console.error('Hiba lezáráskor', err);
+    }
+  });
+}
 
   isAdmin(): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');

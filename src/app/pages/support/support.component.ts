@@ -55,20 +55,21 @@ export class SupportComponent implements OnInit {
     });
   }
 
-  sendReply(requestId: string) {
+ sendReply(requestId: string) {
   const token = localStorage.getItem('token');
   if (!token) return;
+
+  const request = this.supportRequests.find(r => r._id === requestId);
+  if (!request || request.status) {
+    console.warn('Ez a kérés le van zárva, nem lehet válaszolni.');
+    return;
+  }
 
   const message = this.newMessages[requestId];
   if (!message || !message.trim()) return;
 
-  console.log('Küldésre váró üzenet:', message);
-  console.log('Request ID:', requestId);
-
   this.supportService.addReplyToSupportRequest(requestId, message.trim(), token).subscribe({
     next: (updatedRequest) => {
-      console.log('Szerver válasza:', updatedRequest);
-      
       const index = this.supportRequests.findIndex(r => r._id === updatedRequest._id);
       if (index !== -1) {
         this.supportRequests[index] = updatedRequest;
@@ -78,6 +79,7 @@ export class SupportComponent implements OnInit {
     error: (err) => console.error('Válasz küldés hiba:', err)
   });
 }
+
 
 
   isOwnMessage(senderId: string): boolean {

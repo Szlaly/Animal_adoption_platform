@@ -6,7 +6,7 @@ import { SupportMessage } from '../models/support-message.model';
 export interface SupportRequest {
   _id: string;
   subject: string;
-  status: string;
+  status: 'open' | 'closed';
   createdAt: string;
   user: {
     _id: string;
@@ -44,9 +44,13 @@ export class SupportService {
     return this.http.post(`${this.baseUrl}/${requestId}/reply`, { message }, { headers });
   }
 
-  // 🔧 Javított metódus: message objektumot vár (nem sima stringet)
   addResponse(requestId: string, message: { text: string }, token: string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post(`${this.baseUrl}/response`, { requestId, message }, { headers });
   }
+  closeSupportRequest(requestId: string, token: string): Observable<any> {
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.put(`${this.baseUrl}/close/${requestId}`, {}, { headers });
+}
+
 }

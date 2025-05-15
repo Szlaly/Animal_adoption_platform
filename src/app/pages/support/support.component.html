@@ -13,21 +13,30 @@
   <div *ngIf="supportRequests.length > 0; else noSupport">
     <div *ngFor="let req of supportRequests" class="support-request">
       <h4>{{ req.subject }}</h4>
-      <p><strong>Állapot:</strong> {{ req.status }}</p>
+      <p>
+        <strong>Állapot:</strong>
+        <span [ngClass]="{ 'text-success': req.status === 'open', 'text-danger': req.status === 'closed' }">
+          {{ req.status === 'closed' ? 'Lezárva' : 'Aktív' }}
+        </span>
+      </p>
 
       <div class="messages">
         <div *ngFor="let msg of req.messages"
              [ngClass]="{ 'own-message': isOwnMessage(msg.sender._id), 'other-message': !isOwnMessage(msg.sender._id) }">
           <p><strong>{{ msg.sender.name }}:</strong></p>
-         <p>{{ msg.text }}</p>
+          <p>{{ msg.text }}</p>
           <p class="timestamp" *ngIf="msg.sentAt">{{ msg.sentAt | date:'short' }}</p>
         </div>
       </div>
 
-      <div class="reply-form">
+      <div class="reply-form" *ngIf="req.status === 'open'; else closedInfo">
         <textarea [(ngModel)]="newMessages[req._id]" placeholder="Válasz..."></textarea>
-        <button (click)="sendReply(req._id)">Válasz küldése</button>
+        <button (click)="sendReply(req._id)" [disabled]="!newMessages[req._id]?.trim()">Válasz küldése</button>
       </div>
+
+      <ng-template #closedInfo>
+        <p class="text-muted">Ez a kérés le van zárva, nem küldhető több válasz.</p>
+      </ng-template>
     </div>
   </div>
 
