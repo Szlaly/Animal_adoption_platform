@@ -32,7 +32,7 @@ export const updateAnimal = async (req: Request, res: Response): Promise<any> =>
   }
 };
 
-export const deleteAnimal = async (req: Request, res: Response) => {
+export const deleteAnimal = async (req: Request, res: Response): Promise<any> => {
   const { id } = req.params;
 
   try {

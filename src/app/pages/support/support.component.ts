@@ -1,55 +1,86 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { SupportService, SupportRequest } from '../../services/support.service';
 import { AuthService } from '../../services/auth.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-support',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './support.component.html',
-  styleUrls: ['./support.component.scss']
+  styleUrls: ['./support.component.scss'],
 })
 export class SupportComponent implements OnInit {
+  supportRequests: SupportRequest[] = [];
   user: any;
-  favorites: any[] = [];
-  adoptionRequests: any[] = [];
+  newMessages: { [key: string]: string } = {};
+
   subject: string = '';
   message: string = '';
-  userSupportRequests: SupportRequest[] = [];
 
   constructor(
     private supportService: SupportService,
     private authService: AuthService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.user = this.authService.currentUser;
-    this.loadMySupportRequests();
+    this.fetchSupportRequests();
+  }
+
+  fetchSupportRequests() {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    this.supportService.getUserSupportRequests(token).subscribe({
+      next: (requests) => this.supportRequests = requests,
+      error: (err) => console.error('Support lekérés hiba:', err)
+    });
   }
 
   submitSupportRequest() {
     const token = localStorage.getItem('token');
     if (!token) return;
 
-    this.supportService.createSupportRequest(this.subject, this.message, token).subscribe({
+    if (!this.subject.trim() || !this.message.trim()) return;
+
+    this.supportService.createSupportRequest(this.subject.trim(), this.message.trim(), token).subscribe({
       next: () => {
         this.subject = '';
         this.message = '';
-        this.loadMySupportRequests();
+        this.fetchSupportRequests();
       },
-      error: (err) => console.error('Kérés sikertelen:', err)
+      error: (err) => console.error('Support kérés küldés hiba:', err)
     });
   }
 
-  loadMySupportRequests() {
-    const token = localStorage.getItem('token');
-    if (!token) return;
+  sendReply(requestId: string) {
+  const token = localStorage.getItem('token');
+  if (!token) return;
 
-    this.supportService.getUserSupportRequests(token).subscribe({
-      next: (data) => this.userSupportRequests = data,
-      error: (err) => console.error('Hiba a saját support kérdések betöltésekor:', err)
-    });
+  const message = this.newMessages[requestId];
+  if (!message || !message.trim()) return;
+
+  console.log('Küldésre váró üzenet:', message);
+  console.log('Request ID:', requestId);
+
+  this.supportService.addReplyToSupportRequest(requestId, message.trim(), token).subscribe({
+    next: (updatedRequest) => {
+      console.log('Szerver válasza:', updatedRequest);
+      
+      const index = this.supportRequests.findIndex(r => r._id === updatedRequest._id);
+      if (index !== -1) {
+        this.supportRequests[index] = updatedRequest;
+      }
+      this.newMessages[requestId] = '';
+    },
+    error: (err) => console.error('Válasz küldés hiba:', err)
+  });
+}
+
+
+  isOwnMessage(senderId: string): boolean {
+    return this.user && this.user._id === senderId;
   }
 }

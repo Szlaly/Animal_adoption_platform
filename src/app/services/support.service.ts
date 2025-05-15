@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { SupportMessage } from '../models/support-message.model';
 
 export interface SupportRequest {
   _id: string;
   subject: string;
-  message: string;
   status: string;
   createdAt: string;
   user: {
@@ -13,6 +13,7 @@ export interface SupportRequest {
     name: string;
     email: string;
   };
+  messages: SupportMessage[];
 }
 
 @Injectable({
@@ -32,9 +33,20 @@ export class SupportService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<SupportRequest[]>(this.baseUrl, { headers });
   }
-  getUserSupportRequests(token: string): Observable<SupportRequest[]> {
-  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-  return this.http.get<SupportRequest[]>(`${this.baseUrl}/my`, { headers });
-}
 
+  getUserSupportRequests(token: string): Observable<SupportRequest[]> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<SupportRequest[]>(`${this.baseUrl}/my`, { headers });
+  }
+
+  addReplyToSupportRequest(requestId: string, message: string, token: string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${this.baseUrl}/${requestId}/reply`, { message }, { headers });
+  }
+
+  // 🔧 Javított metódus: message objektumot vár (nem sima stringet)
+  addResponse(requestId: string, message: { text: string }, token: string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${this.baseUrl}/response`, { requestId, message }, { headers });
+  }
 }

@@ -2,19 +2,36 @@
   <h2>🛠️ Support</h2>
   <p>Ha kérdésed van vagy problémába ütköztél, írj nekünk!</p>
 
-  <form (ngSubmit)="submitSupportRequest()">
+  <form (ngSubmit)="submitSupportRequest()" class="support-form">
     <input type="text" [(ngModel)]="subject" name="subject" placeholder="Tárgy" required />
     <textarea [(ngModel)]="message" name="message" placeholder="Üzenet" rows="4" required></textarea>
     <button type="submit">Küldés</button>
   </form>
 
-  <div *ngIf="userSupportRequests.length > 0" class="previous-supports">
-    <h3>📬 Korábbi kérdéseid</h3>
-    <div *ngFor="let req of userSupportRequests" class="request-card">
-      <p><strong>Tárgy:</strong> {{ req.subject }}</p>
-      <p><strong>Üzenet:</strong> {{ req.message }}</p>
-      <p><strong>Dátum:</strong> {{ req.createdAt | date:'mediumDate' }}</p>
-      <p><strong>Státusz:</strong> {{ req.status }}</p>
+  <h2>📬 Támogatási kérelmeid</h2>
+
+  <div *ngIf="supportRequests.length > 0; else noSupport">
+    <div *ngFor="let req of supportRequests" class="support-request">
+      <h4>{{ req.subject }}</h4>
+      <p><strong>Állapot:</strong> {{ req.status }}</p>
+
+      <div class="messages">
+        <div *ngFor="let msg of req.messages"
+             [ngClass]="{ 'own-message': isOwnMessage(msg.sender._id), 'other-message': !isOwnMessage(msg.sender._id) }">
+          <p><strong>{{ msg.sender.name }}:</strong></p>
+         <p>{{ msg.text }}</p>
+          <p class="timestamp" *ngIf="msg.sentAt">{{ msg.sentAt | date:'short' }}</p>
+        </div>
+      </div>
+
+      <div class="reply-form">
+        <textarea [(ngModel)]="newMessages[req._id]" placeholder="Válasz..."></textarea>
+        <button (click)="sendReply(req._id)">Válasz küldése</button>
+      </div>
     </div>
   </div>
+
+  <ng-template #noSupport>
+    <p>Nincs még támogatási kérésed.</p>
+  </ng-template>
 </div>

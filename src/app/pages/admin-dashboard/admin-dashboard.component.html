@@ -26,17 +26,32 @@
 </div>
 <div class="support-requests">
   <h3>🛠️ Beérkezett support kérések</h3>
+
   <div *ngIf="supportRequests.length > 0; else noSupport">
-    <div *ngFor="let req of supportRequests" class="request-card">
+    <div *ngFor="let req of supportRequests" class="support-request">
+      <h4>{{ req.subject }}</h4>
       <p><strong>Felhasználó:</strong> {{ req.user?.name }} ({{ req.user?.email }})</p>
-      <p><strong>Tárgy:</strong> {{ req.subject }}</p>
-      <p><strong>Üzenet:</strong> {{ req.message }}</p>
-      <p><strong>Dátum:</strong> {{ req.createdAt | date:'mediumDate' }}</p>
-      <p><strong>Státusz:</strong> {{ req.status }}</p>
+      <p><strong>Állapot:</strong> {{ req.status }}</p>
+
+      <div class="messages">
+        <div *ngFor="let msg of req.messages"
+             [ngClass]="{ 'own-message': isOwnMessage(msg.sender._id), 'other-message': !isOwnMessage(msg.sender._id) }">
+          <p><strong>{{ msg.sender.name }}:</strong></p>
+          <p>{{ msg.text }}</p>
+          <p class="timestamp" *ngIf="msg.sentAt">{{ msg.sentAt | date:'short' }}</p>
+        </div>
+      </div>
+
+      <div class="reply-form">
+        <textarea [(ngModel)]="newResponse[req._id]" placeholder="Írj választ..."></textarea>
+        <button (click)="sendResponse(req._id)">Válasz küldése</button>
+      </div>
     </div>
   </div>
+
   <ng-template #noSupport>
     <p>Még nem érkezett support kérés.</p>
   </ng-template>
 </div>
+
 

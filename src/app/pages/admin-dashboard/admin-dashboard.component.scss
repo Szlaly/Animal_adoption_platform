@@ -41,3 +41,81 @@ button {
 button:hover {
   background-color: #45a049;
 }
+.admin-dashboard {
+  padding: 20px;
+}
+
+.support-requests {
+  max-width: 800px;
+  margin: 30px auto;
+}
+
+.support-request {
+  margin-bottom: 30px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.messages {
+  margin: 10px 0;
+  max-height: 250px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.own-message {
+  text-align: right;
+  background-color: #dcf8c6;
+  padding: 8px;
+  margin: 8px 0;
+  border-radius: 10px;
+}
+
+.other-message {
+  text-align: left;
+  background-color: #eee;
+  padding: 8px;
+  margin: 8px 0;
+  border-radius: 10px;
+}
+
+.timestamp {
+  font-size: 0.8rem;
+  color: #666;
+  text-align: right;
+}
+
+.reply-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.reply-form textarea {
+  width: 100%;
+  min-height: 60px;
+  resize: vertical;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.reply-form button {
+  align-self: flex-end;
+  padding: 8px 16px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+.reply-form button:hover {
+  background-color: #0056b3;
+}

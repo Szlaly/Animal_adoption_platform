@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 import { AdoptionService, AdoptionRequest } from '../../services/adoption.service';
 import { SupportService, SupportRequest } from '../../services/support.service';
 
@@ -14,6 +15,8 @@ import { SupportService, SupportRequest } from '../../services/support.service';
 export class AdminDashboardComponent implements OnInit {
   adoptionRequests: AdoptionRequest[] = [];
   supportRequests: SupportRequest[] = [];
+  user: any;
+  newResponse: { [key: string]: string } = {};
   errorMessage: string = '';
 
   constructor(
@@ -57,5 +60,30 @@ export class AdminDashboardComponent implements OnInit {
       next: () => this.fetchAdoptionRequests(),
       error: (err) => console.error('Frissítés sikertelen:', err)
     });
+  }
+
+  sendResponse(requestId: string): void {
+    const response = this.newResponse[requestId];
+    if (!response) return;
+
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    // 🔧 FONTOS: message objektumba ágyazzuk a szöveget
+    this.supportService.addResponse(requestId, { text: response }, token).subscribe({
+      next: () => {
+        this.fetchSupportRequests(); // frissítjük a support kéréseket
+        this.newResponse[requestId] = ''; // kiürítjük az inputot
+      },
+      error: (err) => console.error('Válasz küldése hiba:', err)
+    });
+  }
+
+  isAdmin(): boolean {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user?.role === 'admin';
+  }
+  isOwnMessage(senderId: string): boolean {
+    return this.user && this.user._id === senderId;
   }
 }
