@@ -24,7 +24,8 @@ const supportSchema = new mongoose.Schema({
   message: { type: String, required: true },
   status: { type: String, enum: ["open", "closed"], default: "open" },
   createdAt: { type: Date, default: Date.now },
-  messages: [messageSchema]
+  messages: [messageSchema],
+  animal: { type: mongoose.Schema.Types.ObjectId, ref: "Animal", required: false }
 });
 
 export const Support = mongoose.model("Support", supportSchema);

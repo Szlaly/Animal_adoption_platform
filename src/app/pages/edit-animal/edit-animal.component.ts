@@ -16,6 +16,8 @@ export class AnimalEditComponent implements OnInit {
   animalId!: string;
   errorMessage: string = '';
   successMessage: string = '';
+  selectedFile: File | null = null;
+  currentImageUrl: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -33,8 +35,7 @@ export class AnimalEditComponent implements OnInit {
       age: ['', [Validators.required, Validators.min(0)]],
       description: [''],
       health: [''],
-      story: [''],
-      imageUrl: ['']
+      story: ['']
     });
 
     this.loadAnimal();
@@ -50,9 +51,9 @@ export class AnimalEditComponent implements OnInit {
           age: animal.age,
           description: animal.description || '',
           health: animal.health || '',
-          story: (animal as any).story || '', // story lehet, hogy nincs még a típusban
-          imageUrl: animal.imageUrl || ''
+          story: (animal as any).story || ''
         });
+        this.currentImageUrl = animal.imageUrl || '';
       },
       error: (err) => {
         this.errorMessage = 'Nem sikerült betölteni az állat adatait.';
@@ -61,10 +62,32 @@ export class AnimalEditComponent implements OnInit {
     });
   }
 
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
+  }
+
   saveChanges() {
     if (this.form.invalid) return;
 
-    this.animalService.updateAnimal(this.animalId, this.form.value).subscribe({
+    const formData = new FormData();
+    formData.append('name', this.form.get('name')?.value || '');
+    formData.append('species', this.form.get('species')?.value || '');
+    formData.append('breed', this.form.get('breed')?.value || '');
+    formData.append('age', this.form.get('age')?.value?.toString() || '0');
+    formData.append('description', this.form.get('description')?.value || '');
+    formData.append('health', this.form.get('health')?.value || '');
+    formData.append('story', this.form.get('story')?.value || '');
+
+    if (this.selectedFile) {
+      formData.append('image', this.selectedFile);
+    } else {
+      formData.append('imageUrl', this.currentImageUrl); // megtartjuk a régit, ha nincs új
+    }
+
+    this.animalService.updateAnimal(this.animalId, formData).subscribe({
       next: () => {
         this.successMessage = 'Állat sikeresen frissítve!';
         setTimeout(() => this.router.navigate(['/animals', this.animalId]), 1500);

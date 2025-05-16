@@ -51,11 +51,16 @@ getFavorites(token: string) {
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
   return this.http.get<any>(`http://localhost:5000/api/users/favorites`, { headers });
 }
-updateAnimal(id: string, updatedData: Partial<Animal>): Observable<Animal> {
+updateAnimal(id: string, updatedData: FormData): Observable<any> {
   const token = localStorage.getItem('token') || '';
-  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-  return this.http.put<Animal>(`${this.baseUrl}/${id}`, updatedData, { headers });
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`
+    // ⛔️ Ne adjunk meg 'Content-Type'-ot, ha FormData-t küldünk – a böngésző automatikusan beállítja.
+  });
+
+  return this.http.put(`${this.baseUrl}/${id}`, updatedData, { headers });
 }
+
 deleteAnimal(id: string): Observable<any> {
   const token = localStorage.getItem('token') || '';
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -69,5 +74,14 @@ addAnimalWithImage(formData: FormData, token: string): Observable<Animal> {
 
   return this.http.post<Animal>(this.baseUrl, formData, { headers });
 }
+updateAnimalWithImage(id: string, formData: FormData) {
+  return this.http.put<Animal>(`${this.baseUrl}/animals/${id}`, formData);
+}
+addUpdateToAnimal(id: string, text: string): Observable<any> {
+  const token = localStorage.getItem('token') || '';
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.post(`${this.baseUrl}/${id}/updates`, { text }, { headers });
+}
+
 
 }

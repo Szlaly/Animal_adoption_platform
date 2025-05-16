@@ -33,27 +33,33 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   fetchAdoptionRequests() {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      this.errorMessage = 'Hiányzik a token.';
-      return;
-    }
-
-    this.adoptionService.getAllAdoptionRequests(token).subscribe({
-      next: (data) => this.adoptionRequests = data,
-      error: (err) => this.errorMessage = err.error.message || 'Hiba történt a kérelmek lekérésekor.'
-    });
+  const token = localStorage.getItem('token');
+  if (!token) {
+    this.errorMessage = 'Hiányzik a token.';
+    return;
   }
 
-  fetchSupportRequests() {
-    const token = localStorage.getItem('token');
-    if (!token) return;
+  this.adoptionService.getAllAdoptionRequests(token).subscribe({
+    next: (data) => {
+      // csak azok a kérelmek, ahol van állat és felhasználó is
+      this.adoptionRequests = data.filter(r => r.animal && r.user);
+    },
+    error: (err) => this.errorMessage = err.error.message || 'Hiba történt a kérelmek lekérésekor.'
+  });
+}
 
-    this.supportService.getAllSupportRequests(token).subscribe({
-      next: (data) => this.supportRequests = data,
-      error: (err) => console.error('Support kérdések lekérdezési hiba:', err)
-    });
-  }
+fetchSupportRequests() {
+  const token = localStorage.getItem('token');
+  if (!token) return;
+
+  this.supportService.getAllSupportRequests(token).subscribe({
+    next: (data) => {
+      // csak azok a support kérések, ahol van user
+      this.supportRequests = data.filter(r => r.user);
+    },
+    error: (err) => console.error('Support kérdések lekérdezési hiba:', err)
+  });
+}
 
   updateRequestStatus(id: string, status: string, meetingDate?: string) {
     const token = localStorage.getItem('token');

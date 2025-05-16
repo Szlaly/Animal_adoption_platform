@@ -17,7 +17,27 @@
 
   <!-- Admin szerkesztési gomb -->
   <button *ngIf="isAdmin" (click)="editAnimal()">Szerkesztés</button>
+  <button *ngIf="isAdmin" (click)="toggleUpdateBox()">➕ Frissítés hozzáadása</button>
+
+<!-- Frissítés szövegmező -->
+<div *ngIf="showUpdateBox">
+  <textarea [(ngModel)]="newUpdateText" rows="4" cols="50" placeholder="Írj ide egy új frissítést..."></textarea>
+  <br>
+  <button (click)="submitUpdate()">📩 Küldés</button>
 </div>
+
+<!-- Frissítések megjelenítése -->
+<div *ngIf="animal?.updates?.length" class="updates-list">
+  <h3>Frissítések</h3>
+  <ul>
+    <li *ngFor="let update of animal.updates">
+       {{ update }}
+    </li>
+  </ul>
+</div>
+</div>
+<!-- Admin gomb a frissítés hozzáadásához -->
+
 
 <ng-template #loading>
   <p>Betöltés...</p>

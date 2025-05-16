@@ -37,6 +37,7 @@
            [ngClass]="{ 'closed': request.status }">
         <p><strong>Felhasználó:</strong> {{ request.user?.name }} ({{ request.user?.email }})</p>
         <p><strong>Tárgy:</strong> {{ request?.subject }}</p>
+        <p><strong>Állat:</strong> {{ request.animal?.name || 'Nincs megadva' }}</p>
         <p><strong>Dátum:</strong> {{ request.createdAt | date:'mediumDate' }}</p>
         <p><strong>Státusz:</strong> {{ request.status }}</p>
 

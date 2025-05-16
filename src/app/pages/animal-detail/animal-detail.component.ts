@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AnimalService } from '../../services/animal.service';
 import { AuthService } from '../../services/auth.service';
@@ -7,7 +8,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-animal-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './animal-detail.component.html',
   styleUrls: ['./animal-detail.component.scss']
 })
@@ -20,7 +21,9 @@ export class AnimalDetailComponent {
   animal: any = null;
   token: string | null = null;
   isFavorite: boolean = false;
-  isAdmin: boolean = false;  // Admin jogosultság jelzése
+  isAdmin: boolean = false; 
+  showUpdateBox = false;
+  newUpdateText = '';
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -87,4 +90,21 @@ export class AnimalDetailComponent {
       console.error('Admin jogosultság szükséges a szerkesztéshez.');
     }
   }
+  toggleUpdateBox() {
+  this.showUpdateBox = !this.showUpdateBox;
+}
+
+submitUpdate() {
+  if (!this.animal?._id || !this.newUpdateText.trim()) return;
+
+  this.animalService.addUpdateToAnimal(this.animal._id, this.newUpdateText).subscribe({
+    next: (updatedAnimal) => {
+      this.animal = updatedAnimal;
+      this.newUpdateText = '';
+      this.showUpdateBox = false;
+    },
+    error: (err) => console.error('Hiba a frissítés elküldésekor:', err)
+  });
+}
+
 }

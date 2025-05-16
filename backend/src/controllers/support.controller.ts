@@ -11,15 +11,25 @@ declare module "express" {
   }
 }
 export const createSupportRequest = async (req: Request, res: Response): Promise<any> => {
-  const userId = (req as any).user.id;
-  const { subject, message } = req.body;
+  const userId = req.user?.id;
+  const { subject, message, animal } = req.body;
 
+  if (!userId) {
+    return res.status(401).json({ message: 'Nem vagy bejelentkezve' });
+  }
   if (!subject || !message) {
     return res.status(400).json({ message: 'A tárgy és az üzenet megadása kötelező.' });
   }
 
   try {
-    const support = new Support({ user: userId, subject, message });
+    const support = new Support({
+      user: userId,
+      subject,
+      message,
+      animal: animal || null,
+      status: 'open',
+      messages: []
+    });
     await support.save();
     res.status(201).json({ message: 'Support kérés elküldve', support });
   } catch (err) {
@@ -31,22 +41,26 @@ export const createSupportRequest = async (req: Request, res: Response): Promise
 export const getAllSupportRequests = async (_req: Request, res: Response) => {
   try {
     const supports = await Support.find()
-      .populate('user', 'name email') // kérés beküldője
-      .populate('messages.sender', 'name email'); // minden válasz feladója
-
+      .populate('user', 'name email')
+      .populate('animal', 'name species')
+      .populate('messages.sender', 'name email');
     res.json(supports);
   } catch (err) {
     res.status(500).json({ message: 'Hiba a lekérdezés során', error: err });
   }
 };
 
-export const getUserSupportRequests = async (req: Request, res: Response) => {
-  const userId = (req as any).user.id;
+export const getUserSupportRequests = async (req: Request, res: Response): Promise<any> => {
+  const userId = req.user?.id;
+
+  if (!userId) {
+    return res.status(401).json({ message: 'Nem vagy bejelentkezve' });
+  }
 
   try {
     const supports = await Support.find({ user: userId })
-      .populate('messages.sender', 'name email'); // Válaszoló adatai is jöjjenek
-
+      .populate('animal', 'name species')
+      .populate('messages.sender', 'name email');
     res.json(supports);
   } catch (err) {
     res.status(500).json({ message: 'Hiba a saját kérdések lekérdezésekor', error: err });

@@ -9,6 +9,11 @@ const animalSchema = new mongoose.Schema({
   breed: String,
   description: String,
   health: String,
+  updates: {
+  type: [String],
+  default: []
+},
+
   story: { type: String, default: '' },
   likedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   imageUrl: String

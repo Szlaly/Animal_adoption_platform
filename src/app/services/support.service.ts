@@ -8,6 +8,11 @@ export interface SupportRequest {
   subject: string;
   status: 'open' | 'closed';
   createdAt: string;
+   animal?: {
+    _id: string;
+  name: string;
+  species: string;
+  };
   user: {
     _id: string;
     name: string;
@@ -23,11 +28,20 @@ export class SupportService {
   private baseUrl = 'http://localhost:5000/api/support';
 
   constructor(private http: HttpClient) {}
-
-  createSupportRequest(subject: string, message: string, token: string): Observable<any> {
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post(this.baseUrl, { subject, message }, { headers });
+private getAuthHeaders(token: string) {
+    return {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      })
+    };
   }
+  
+  createSupportRequest(subject: string, message: string, token: string, animalId?: string): Observable<any> {
+    const body: any = { subject, message };
+    if (animalId) body.animal = animalId;
+    return this.http.post(this.baseUrl, body, this.getAuthHeaders(token));
+  }
+
 
   getAllSupportRequests(token: string): Observable<SupportRequest[]> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
