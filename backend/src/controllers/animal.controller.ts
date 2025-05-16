@@ -15,11 +15,50 @@ export const getAnimalById = async (req: Request, res: Response): Promise<any> =
   res.json(animal);
 };
 
-export const createAnimal = async (req: Request, res: Response) => {
+/*export const createAnimal = async (req: Request, res: Response) => {
   const newAnimal = new Animal(req.body);
   await newAnimal.save();
   res.status(201).json(newAnimal);
+};*/
+export const createAnimal = async (req: Request, res: Response) => {
+  try {
+    const {
+      name,
+      age,
+      species,
+      breed,
+      description,
+      health,
+      story
+    } = req.body;
+
+    const imageBuffer = req.file?.buffer;
+    const imageMimeType = req.file?.mimetype;
+
+    // Itt lehet menteni a fájlt vagy annak URL-jét beállítani (pl. fájlrendszerbe, vagy később S3-ba)
+    // Példa:
+    const imageUrl = req.file ? `/uploads/${req.file.filename}` : '';
+
+    const newAnimal = new Animal({
+      name,
+      age,
+      species,
+      breed,
+      description,
+      health,
+      story,
+      imageUrl,
+      likedBy: []
+    });
+
+    await newAnimal.save();
+    res.status(201).json(newAnimal);
+  } catch (error) {
+    console.error('Hiba állat létrehozásakor:', error);
+    res.status(500).json({ message: 'Hiba történt az állat hozzáadásakor.' });
+  }
 };
+
 
 export const updateAnimal = async (req: Request, res: Response): Promise<any> => {
   try {

@@ -1,6 +1,6 @@
 <div *ngIf="animal; else loading" class="animal-detail">
   <h2>{{ animal.name }}</h2>
-  <img [src]="animal.imageUrl" [alt]="animal.name" />
+  <img [src]="'http://localhost:5000' + animal.imageUrl" alt="{{animal.name}}">
   <p><strong>Faj:</strong> {{ animal.species }}</p>
   <p><strong>Fajta:</strong> {{ animal.breed }}</p>
   <p><strong>Kor:</strong> {{ animal.age }} év</p>

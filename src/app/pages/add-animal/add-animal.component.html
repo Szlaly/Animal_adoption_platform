@@ -37,9 +37,17 @@
     </label>
 
     <label>
-      Kép URL:
-      <input type="text" [(ngModel)]="animal.imageUrl" name="imageUrl" required />
-    </label>
+  Állat képe:
+  <input
+    type="file"
+    id="fileInput"
+    (change)="onFileSelected($event)"
+    accept="image/*"
+    class="custom-file-input"
+  />
+</label>
+
+
 
     <button type="submit">Mentés</button>
   </form>

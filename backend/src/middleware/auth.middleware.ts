@@ -10,7 +10,7 @@ interface JwtPayload {
 
 export const authenticate = (req: Request, res: Response, next: NextFunction): void => {
   const authHeader = req.headers.authorization;
-
+console.log("Authorization header:", authHeader);
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     res.status(401).json({ message: "Hiányzó vagy érvénytelen token" });
     return;
@@ -20,9 +20,11 @@ export const authenticate = (req: Request, res: Response, next: NextFunction): v
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
+    console.log("Decoded token:", decoded);
     (req as any).user = decoded;
     next();
   } catch (err) {
+    console.error("Token verify error:", err);
     res.status(401).json({ message: "Érvénytelen token" });
     return;
   }

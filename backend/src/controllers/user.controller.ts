@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import mongoose from "mongoose";
 import { User } from "../models/user.model";
 import { Animal } from "../models/animal.model";
+import bcrypt from 'bcryptjs'; 
+
 
 export const addFavorite = async (req: Request, res: Response): Promise<any> => {
   const userId = (req as any).user.id;
@@ -53,4 +55,12 @@ export const getFavorites = async (req: Request, res: Response): Promise<any> =>
   res.json({ favorites: user.favorites });
 };
 
+export const deleteMe = async (req: any, res: Response) => {
+  try {
+    await User.findByIdAndDelete(req.user.id);
+    res.json({ message: "Fiók törölve" });
+  } catch (err) {
+    res.status(500).json({ message: "Hiba történt a törlés során" });
+  }
+};
 

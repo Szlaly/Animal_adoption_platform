@@ -6,7 +6,7 @@
 
   <div class="animal-grid">
     <div class="animal-card" *ngFor="let animal of animals">
-      <img [src]="animal.imageUrl" [alt]="animal.name" />
+      <img [src]="'http://localhost:5000' + animal.imageUrl" alt="{{animal.name}}">
       <h3>{{ animal.name }}</h3>
       <p>{{ animal.description }}</p>
       <button [routerLink]="['/animals', animal._id]">Részletek</button>

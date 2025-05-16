@@ -3,8 +3,12 @@
 
   <div class="user-info" *ngIf="user">
     <p><strong>Név:</strong> {{ user.name }}</p>
-    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Email:</strong> {{ user.email || 'N/A' }}</p>
     <p><strong>Szerepkör:</strong> {{ user.role }}</p>
+    <button (click)="showChangePassword = !showChangePassword" class="save-btn">
+  Jelszó módosítása
+</button>
+<app-change-password *ngIf="showChangePassword"></app-change-password>
   </div>
 
   <div class="favorites">
@@ -17,7 +21,7 @@
       </ul>
     </div>
     <ng-template #noFavs>
-      <p>Nincsenek még kedvenc állataid.</p>
+      <p class="empty-message">Nincsenek még kedvenc állataid.</p>
     </ng-template>
   </div>
 
@@ -32,7 +36,12 @@
       </div>
     </div>
     <ng-template #noRequests>
-      <p>Még nem küldtél be örökbefogadási kérelmet.</p>
+      <p class="empty-message">Még nem küldtél be örökbefogadási kérelmet.</p>
     </ng-template>
   </div>
+</div>
+
+<div class="account-actions">
+  <h3>⚠️ Fiók műveletek</h3>
+  <button (click)="confirmDelete()" class="delete-btn">Fiók törlése</button>
 </div>

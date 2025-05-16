@@ -29,5 +29,25 @@ export const login = async (req: Request, res: Response): Promise<any> => {
 
   const token = jwt.sign({ id: user._id, role: user.role }, JWT_SECRET, { expiresIn: "1d" });
 
-  res.json({ token, user: { id: user._id, name: user.name, role: user.role } });
+  res.json({ token, user: { id: user._id, name: user.name, role: user.role, email:user.email } });
 };
+export const changePassword = async (req: any, res: Response): Promise<any> => {
+  console.log('Kapott body:', req.body);
+
+  const { currentPassword, newPassword } = req.body;
+  if (!currentPassword || !newPassword) {
+    return res.status(400).json({ message: "Hiányzó mezők" });
+  }
+
+  const user = await User.findById(req.user.id);
+  if (!user) return res.status(404).json({ message: "Felhasználó nem található" });
+
+  const isMatch = await bcrypt.compare(currentPassword, user.password);
+  if (!isMatch) return res.status(400).json({ message: "Hibás jelenlegi jelszó" });
+
+  user.password = await bcrypt.hash(newPassword, 10);
+  await user.save();
+
+  res.json({ message: "Jelszó sikeresen megváltoztatva" });
+};
+

@@ -24,7 +24,7 @@ app.use("/api/animals", animalRoutes);
 app.use("/api/users", userRoutes);
 app.use('/api/support', supportRoutes);
 app.use("/api/adoptions", adoptionRoutes);
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
 app.get("/", (req, res) => {
   res.send("API működik");

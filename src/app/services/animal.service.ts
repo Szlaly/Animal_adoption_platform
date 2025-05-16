@@ -61,4 +61,13 @@ deleteAnimal(id: string): Observable<any> {
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
   return this.http.delete(`${this.baseUrl}/${id}`, { headers });
 }
+addAnimalWithImage(formData: FormData, token: string): Observable<Animal> {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+    // Ne állíts be 'Content-Type'-ot, a böngésző automatikusan beállítja multipart/form-data-ra
+  });
+
+  return this.http.post<Animal>(this.baseUrl, formData, { headers });
+}
+
 }

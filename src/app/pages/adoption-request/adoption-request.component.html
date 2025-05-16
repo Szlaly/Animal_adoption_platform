@@ -12,11 +12,8 @@
     <label for="name">Neved</label>
     <input id="name" type="text" [(ngModel)]="name" name="name" placeholder="Teljes neved" required />
 
-    <label for="email">Email címed</label>
-    <input id="email" type="email" [(ngModel)]="email" name="email" placeholder="te@email.com" required />
-
-    <label for="meetingDate">Választott dátum</label>
-    <input id="meetingDate" type="date" [(ngModel)]="meetingDate" name="meetingDate" required />
+    
+    <input type="hidden" [(ngModel)]="email" name="email" />
 
     <label for="message">Üzeneted</label>
     <textarea id="message" [(ngModel)]="message" name="message" rows="4" placeholder="Miért szeretnél örökbe fogadni?" required></textarea>

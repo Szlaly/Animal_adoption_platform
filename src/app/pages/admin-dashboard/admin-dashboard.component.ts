@@ -98,6 +98,42 @@ closeRequest(requestId: string) {
     }
   });
 }
+approveRequest(request: AdoptionRequest) {
+  const token = localStorage.getItem('token');
+  if (!token) return;
+
+  if (!request.meetingDate) {
+    alert('Kérlek, add meg a találkozó időpontját!');
+    return;
+  }
+
+  this.adoptionService.updateAdoptionStatus(request._id, { 
+    status: 'approved', 
+    meetingDate: request.meetingDate 
+  }, token).subscribe({
+    next: () => {
+      // helyben módosítjuk a request-et, hogy ne frissítsünk teljes listát
+      request.status = 'approved';
+      // meetingDate már a request.meetingDate, így nem kell újra beállítani
+    },
+    error: (err) => console.error('Jóváhagyás sikertelen:', err)
+  });
+}
+
+
+rejectRequest(request: AdoptionRequest) {
+  const token = localStorage.getItem('token');
+  if (!token) return;
+
+  // Elutasításkor státusz 'rejected', meetingDate változatlan
+  this.adoptionService.updateAdoptionStatus(request._id, { 
+    status: 'rejected' 
+  }, token).subscribe({
+    next: () => this.fetchAdoptionRequests(),
+    error: (err) => console.error('Elutasítás sikertelen:', err)
+  });
+}
+
 
   isAdmin(): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');

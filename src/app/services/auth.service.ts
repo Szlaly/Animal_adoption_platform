@@ -53,4 +53,11 @@ export class AuthService {
     localStorage.removeItem('user');
     this._currentUser = null;
   }
+  changePassword(currentPassword: string, newPassword: string, token: string) {
+    return this.http.put(`${this.baseUrl}/change-password`, 
+      { currentPassword, newPassword }, 
+      { headers: { Authorization: `Bearer ${token}` } }
+      
+    );
+  }
 }

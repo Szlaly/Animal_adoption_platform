@@ -31,7 +31,7 @@
 
       <div class="reply-form" *ngIf="req.status === 'open'; else closedInfo">
         <textarea [(ngModel)]="newMessages[req._id]" placeholder="Válasz..."></textarea>
-        <button (click)="sendReply(req._id)" [disabled]="!newMessages[req._id]?.trim()">Válasz küldése</button>
+        <button (click)="sendReply(req._id)" [disabled]="!newMessages[req._id].trim()">Válasz küldése</button>
       </div>
 
       <ng-template #closedInfo>

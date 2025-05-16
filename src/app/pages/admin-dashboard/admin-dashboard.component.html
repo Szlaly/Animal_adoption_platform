@@ -12,17 +12,22 @@
   <div *ngFor="let request of adoptionRequests" class="adoption-card">
     <p><strong>Állat:</strong> {{ request.animal?.name || 'Ismeretlen állat' }}</p>
     <p><strong>Faj:</strong> {{ request.animal?.species || '-' }}</p>
-    <p><strong>Jelentkező:</strong> {{ request.user?.username || 'Ismeretlen felhasználó' }}</p>
-    <p><strong>Email:</strong> {{ request.user.email }}</p>
-    <p><strong>Üzenet:</strong> {{ request.message || '-' }}</p>
-    <p><strong>Státusz:</strong> {{ request.status }}</p>
+    <p><strong>Jelentkező:</strong> {{ request?.name }}</p>
+    <p><strong>Email:</strong> {{ request.user?.email }}</p>
+    <p><strong>Üzenet:</strong> {{ request?.message || '-' }}</p>
+    <p><strong>Státusz:</strong> {{ request?.status }}</p>
 
     <label>Találkozó időpontja:</label>
-    <input type="datetime-local" [(ngModel)]="request.meetingDate" />
+<input 
+  type="datetime-local" 
+  [(ngModel)]="request.meetingDate" 
+  [disabled]="request.status === 'approved' || request.status === 'rejected'" 
+/>
 
-    <button (click)="updateRequestStatus(request._id, 'approved', request.meetingDate)">✔️ Jóváhagyás</button>
-    <button (click)="updateRequestStatus(request._id, 'rejected')">❌ Elutasítás</button>
-  </div>
+<div *ngIf="request.status !== 'approved' && request.status !== 'rejected'">
+  <button (click)="approveRequest(request)">✔️ Jóváhagyás</button>
+  <button (click)="rejectRequest(request)">❌ Elutasítás</button>
+</div>
 </div>
 <div class="support-requests">
     <h3>🛠️ Beérkezett support kérések</h3>
@@ -31,7 +36,7 @@
            class="support-request" 
            [ngClass]="{ 'closed': request.status }">
         <p><strong>Felhasználó:</strong> {{ request.user?.name }} ({{ request.user?.email }})</p>
-        <p><strong>Tárgy:</strong> {{ request.subject }}</p>
+        <p><strong>Tárgy:</strong> {{ request?.subject }}</p>
         <p><strong>Dátum:</strong> {{ request.createdAt | date:'mediumDate' }}</p>
         <p><strong>Státusz:</strong> {{ request.status }}</p>
 
