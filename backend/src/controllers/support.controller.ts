@@ -37,7 +37,6 @@ export const createSupportRequest = async (req: Request, res: Response): Promise
   }
 };
 
-// support.controller.ts
 export const getAllSupportRequests = async (_req: Request, res: Response) => {
   try {
     const supports = await Support.find()
@@ -76,7 +75,7 @@ interface AuthenticatedRequest extends Request {
 export const addSupportReply = async (req: AuthenticatedRequest, res: Response): Promise<any> => {
   const supportId = req.params.id;
   const userId = req.user?.id;
-  const text = req.body.message; // vagy response, ha így hívod
+  const text = req.body.message; 
 
   if (!text) {
     return res.status(400).json({ message: "Üzenet szöveg szükséges" });
@@ -105,7 +104,7 @@ export const addSupportReply = async (req: AuthenticatedRequest, res: Response):
 export const adminAddReply = async (req: Request, res: Response): Promise<any> => {
   try {
     const { requestId, message } = req.body;
-    const adminId = req.user?.id; // <<< javítva _id helyett id
+    const adminId = req.user?.id; 
 
     if (!requestId || !message || !message.text) {
       return res.status(400).json({ message: 'requestId, message és message.text szükséges' });
@@ -116,7 +115,6 @@ export const adminAddReply = async (req: Request, res: Response): Promise<any> =
       return res.status(404).json({ message: 'Nincs ilyen support kérés' });
     }
 
-    // Üzenet hozzáadása
     supportRequest.messages.push({
       text: message.text,
       sender: adminId,
@@ -124,7 +122,7 @@ export const adminAddReply = async (req: Request, res: Response): Promise<any> =
     });
 
     await supportRequest.save();
-    await supportRequest.populate('messages.sender', 'name email'); // opcionális
+    await supportRequest.populate('messages.sender', 'name email'); 
 
     res.status(200).json({ message: "Admin válasz elküldve", supportRequest });
   } catch (error) {
@@ -169,7 +167,7 @@ export const closeSupportRequest = async (req: Request, res: Response): Promise<
   try {
     const support = await Support.findByIdAndUpdate(
       req.params.id,
-      { status: 'closed' }, // EREDMÉNYES: ezt a mezőt ismeri a séma
+      { status: 'closed' }, 
       { new: true }
     );
     if (!support) return res.status(404).json({ message: 'Support kérés nem található' });

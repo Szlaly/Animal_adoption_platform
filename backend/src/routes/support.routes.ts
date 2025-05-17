@@ -2,7 +2,7 @@ import express from 'express';
 import { authenticate, requireAdmin } from '../middleware/auth.middleware';
 import { addSupportReply, adminAddReply, closeSupportRequest, createSupportRequest, getAllSupportRequests } from '../controllers/support.controller';
 import { getUserSupportRequests } from '../controllers/support.controller';
-import { Support } from '../models/support.model';
+
 
 
 

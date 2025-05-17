@@ -34,7 +34,7 @@ export class AnimalDetailComponent {
         next: (data) => {
           this.animal = data;
           this.checkIfFavorite();
-          this.checkIfAdmin();  // Admin jogosultság ellenőrzése
+          this.checkIfAdmin();  
         },
         error: (err) => console.error('Hiba állat lekérdezésénél:', err)
       });
@@ -77,12 +77,10 @@ export class AnimalDetailComponent {
     return !!this.token;
   }
 
-  // Admin jogosultság ellenőrzése
   checkIfAdmin() {
-    this.isAdmin = this.authService.isAdmin(); // Itt közvetlenül hívjuk meg az isAdmin() metódust
+    this.isAdmin = this.authService.isAdmin(); 
   }
 
-  // Admin szerkesztési oldalra navigálás
   editAnimal() {
     if (this.isAdmin) {
       this.router.navigate(['/animals/edit', this.animal._id]);

@@ -4,7 +4,6 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { AnimalListComponent } from './pages/animal-list/animal-list.component';
 import { AnimalDetailComponent } from './pages/animal-detail/animal-detail.component';
-import { AppointmentComponent } from './pages/appointment/appointment.component';
 import { SupportComponent } from './pages/support/support.component';
 import { AddAnimalComponent } from './pages/add-animal/add-animal.component';
 import { AdoptionRequestComponent } from './pages/adoption-request/adoption-request.component';
@@ -38,7 +37,6 @@ export const routes: Routes = [
         ],
         loadComponent: () => import('./pages/profile/profile.component').then(m => m.ProfileComponent)
     },
-    { path: 'appointment', component: AppointmentComponent },
     { path: 'support', component: SupportComponent },
     {
   path: 'admin',
@@ -51,7 +49,7 @@ export const routes: Routes = [
       if (user && user.role === 'admin') {
         return true;
       } else {
-        router.navigate(['/']); // visszairányítás, ha nem admin
+        router.navigate(['/']); 
         return false;
       }
     }

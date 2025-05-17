@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
 import mongoose from "mongoose";
 import { User } from "../models/user.model";
-import { Animal } from "../models/animal.model";
-import bcrypt from 'bcryptjs'; 
 
 
 export const addFavorite = async (req: Request, res: Response): Promise<any> => {

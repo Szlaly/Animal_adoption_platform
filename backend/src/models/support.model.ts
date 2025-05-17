@@ -1,4 +1,4 @@
-// models/support.model.ts
+
 
 import mongoose from "mongoose";
 

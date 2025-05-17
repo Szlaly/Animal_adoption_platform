@@ -24,10 +24,8 @@ export class LoginComponent {
 
     this.authService.login(this.email, this.password).subscribe({
       next: (res) => {
-        // Token elmentése pl. localStorage-be
         localStorage.setItem('token', res.token);
         
-        // Token logolása
         console.log('Bejelentkezve! A token:', localStorage.getItem('token'));
         
         this.message = 'Sikeres bejelentkezés!';

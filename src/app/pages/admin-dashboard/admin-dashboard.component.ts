@@ -41,7 +41,6 @@ export class AdminDashboardComponent implements OnInit {
 
   this.adoptionService.getAllAdoptionRequests(token).subscribe({
     next: (data) => {
-      // csak azok a kérelmek, ahol van állat és felhasználó is
       this.adoptionRequests = data.filter(r => r.animal && r.user);
     },
     error: (err) => this.errorMessage = err.error.message || 'Hiba történt a kérelmek lekérésekor.'
@@ -54,7 +53,6 @@ fetchSupportRequests() {
 
   this.supportService.getAllSupportRequests(token).subscribe({
     next: (data) => {
-      // csak azok a support kérések, ahol van user
       this.supportRequests = data.filter(r => r.user);
     },
     error: (err) => console.error('Support kérdések lekérdezési hiba:', err)
@@ -78,11 +76,10 @@ fetchSupportRequests() {
     const token = localStorage.getItem('token');
     if (!token) return;
 
-    // 🔧 FONTOS: message objektumba ágyazzuk a szöveget
     this.supportService.addResponse(requestId, { text: response }, token).subscribe({
       next: () => {
-        this.fetchSupportRequests(); // frissítjük a support kéréseket
-        this.newResponse[requestId] = ''; // kiürítjük az inputot
+        this.fetchSupportRequests(); 
+        this.newResponse[requestId] = ''; 
       },
       error: (err) => console.error('Válasz küldése hiba:', err)
     });
@@ -118,9 +115,7 @@ approveRequest(request: AdoptionRequest) {
     meetingDate: request.meetingDate 
   }, token).subscribe({
     next: () => {
-      // helyben módosítjuk a request-et, hogy ne frissítsünk teljes listát
       request.status = 'approved';
-      // meetingDate már a request.meetingDate, így nem kell újra beállítani
     },
     error: (err) => console.error('Jóváhagyás sikertelen:', err)
   });
@@ -131,7 +126,6 @@ rejectRequest(request: AdoptionRequest) {
   const token = localStorage.getItem('token');
   if (!token) return;
 
-  // Elutasításkor státusz 'rejected', meetingDate változatlan
   this.adoptionService.updateAdoptionStatus(request._id, { 
     status: 'rejected' 
   }, token).subscribe({

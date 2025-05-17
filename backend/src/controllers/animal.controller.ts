@@ -1,4 +1,4 @@
-// src/controllers/animal.controller.ts
+
 
 import { Request, Response } from "express";
 import { Animal } from "../models/animal.model";
@@ -15,11 +15,7 @@ export const getAnimalById = async (req: Request, res: Response): Promise<any> =
   res.json(animal);
 };
 
-/*export const createAnimal = async (req: Request, res: Response) => {
-  const newAnimal = new Animal(req.body);
-  await newAnimal.save();
-  res.status(201).json(newAnimal);
-};*/
+
 export const createAnimal = async (req: Request, res: Response) => {
   try {
     const {
@@ -35,8 +31,6 @@ export const createAnimal = async (req: Request, res: Response) => {
     const imageBuffer = req.file?.buffer;
     const imageMimeType = req.file?.mimetype;
 
-    // Itt lehet menteni a fájlt vagy annak URL-jét beállítani (pl. fájlrendszerbe, vagy később S3-ba)
-    // Példa:
     const imageUrl = req.file ? `/uploads/${req.file.filename}` : '';
 
     const newAnimal = new Animal({
@@ -66,15 +60,12 @@ export const updateAnimal = async (req: Request, res: Response): Promise<any> =>
 
     const updateData: any = { ...req.body };
 
-    // Ha van feltöltött fájl, állítsd be az új imageUrl-t
     if (req.file) {
       updateData.imageUrl = `/uploads/${req.file.filename}`;
     } else if (updateData.imageUrl === '') {
-      // Ha az imageUrl üres string, akkor töröljük a képet
       updateData.imageUrl = '';
     }
 
-    // Update az adatbázisban
     const updatedAnimal = await Animal.findByIdAndUpdate(id, updateData, { new: true });
 
     if (!updatedAnimal) {
@@ -93,15 +84,13 @@ export const deleteAnimal = async (req: Request, res: Response): Promise<any> =>
   const { id } = req.params;
 
   try {
-    // Töröld az állatot
     const deletedAnimal = await Animal.findByIdAndDelete(id);
 
     if (!deletedAnimal) {
       return res.status(404).json({ message: 'Állat nem található' });
     }
 
-    // Töröld az állathoz tartozó örökbefogadási kérelmeket
-    await Adoption.deleteMany({ animal: id }); // ← helyes használat
+    await Adoption.deleteMany({ animal: id }); 
 
     res.status(200).json({ message: 'Állat és a kapcsolódó kérelmek törölve' });
   } catch (error) {

@@ -3,9 +3,9 @@ export interface SupportMessage {
   sender: {
     _id: string;
     name: string;
-    email?: string;   // ha szükséges, lehet opcionális
-    role?: string;    // ha van ilyen backend oldalon
+    email?: string;   
+    role?: string;    
   };
-  text: string;       // a backend szerint a szöveg mező neve text
-  sentAt: string;     // a backend szerint az időpont sentAt
+  text: string;       
+  sentAt: string;     
 }

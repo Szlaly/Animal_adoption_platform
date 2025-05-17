@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SupportService, SupportRequest } from '../../services/support.service';
 import { AuthService } from '../../services/auth.service';
-import { AnimalService, Animal } from '../../services/animal.service';  // új
+import { AnimalService, Animal } from '../../services/animal.service';  
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -19,19 +19,19 @@ export class SupportComponent implements OnInit {
 
   subject: string = '';
   message: string = '';
-  selectedAnimalId: string = ''; // új
-  animals: Animal[] = []; // új
+  selectedAnimalId: string = ''; 
+  animals: Animal[] = []; 
 
   constructor(
     private supportService: SupportService,
     private authService: AuthService,
-    private animalService: AnimalService  // új
+    private animalService: AnimalService 
   ) {}
-
+ 
   ngOnInit() {
     this.user = this.authService.currentUser;
     this.fetchSupportRequests();
-    this.loadAnimals();  // új
+    this.loadAnimals();  
   }
 
   loadAnimals() {

@@ -23,7 +23,7 @@ export interface AdoptionRequest {
   providedIn: 'root',
 })
 export class AdoptionService {
-  private apiUrl = 'http://localhost:5000/api/adoptions'; // Az API URL-je, igazítsd a megfelelő címre
+  private apiUrl = 'http://localhost:5000/api/adoptions'; 
 
   constructor(private http: HttpClient) {}
 

@@ -1,59 +1,125 @@
-# AnimalAdoptProj
+# Állatmenhely Webalkalmazás
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.7.
+Ez a projekt egy **MEAN stack** (MongoDB, Express, Angular, Node.js) alapú állatmenhely menedzsment rendszer.  
+Felhasználók számára lehetőséget biztosít állatok böngészésére, kedvencek kijelölésére, örökbefogadási kérelmek küldésére és támogatási (support) üzenetek írására.  
+Adminisztrátorok állatokat adhatnak hozzá, kezelhetik az örökbefogadási kérelmeket és support kérdéseket.
 
-## Development server
+---
 
-To start a local development server, run:
+## Használt technológiák
 
-```bash
+- **Frontend**: Angular 17+ (standalone komponensek)
+- **Backend**: Node.js, Express, TypeScript
+- **Adatbázis**: MongoDB (Docker konténerben)
+- **Autentikáció**: JWT (JSON Web Token)
+- **Kommunikáció**: REST API
+
+---
+
+## Funkciók
+
+### Felhasználók
+
+- Regisztráció / Bejelentkezés (JWT alapú hitelesítéssel)
+- Állatok böngészése, részletek megtekintése
+- Kedvenc állatok megjelölése
+- Örökbefogadási kérelem beküldése
+- Support kérdések írása adminoknak, oda-vissza válasz lehetőséggel
+- Profiloldal, ahol fiók törlés és jelszócsere is elérhető
+
+### Adminisztrátorok
+
+- Állatok hozzáadása / szerkesztése / törlése
+- Örökbefogadási kérelmek áttekintése, időpontok kezelése
+- Support kérdésekre válaszadás
+- Jogosultság-alapú hozzáférés az admin felülethez
+
+---
+
+## Telepítés és futtatás
+
+### Előfeltételek
+
+- [Node.js](https://nodejs.org/) (ajánlott: 18.x vagy újabb)
+- [Angular CLI](https://angular.io/cli)  
+  Telepítés: `npm install -g @angular/cli`
+- [Docker Desktop](https://www.docker.com/products/docker-desktop)
+- Internetkapcsolat a szükséges csomagok letöltéséhez
+
+---
+
+### 1. MongoDB konténer indítása
+
+Nyisd meg a terminált, majd navigálj a `database` mappába:
+
+```
+cd database
+```
+Ha még nem hoztad létre csináld meg az image-t a docker fáj-ból:
+
+```
+docker build -t menhely-mongo-image .
+
+```
+
+Ha a konténer már létezik, indítsd el:
+
+```
+docker start menhely-mongo
+```
+
+Ha még nem létezik, hozz létre egy új konténert:
+
+```
+docker run -d -p 27017:27017 --name menhely-mongo menhely-mongo-image
+```
+
+---
+
+### 2. Backend indítása
+
+Navigálj a `backend` mappába:
+
+```
+cd backend
+```
+
+Telepítsd a szükséges csomagokat:
+
+```
+npm install
+```
+
+Győződj meg róla, hogy a .env fájl jelen van a backend mappában, és tartalmazza a szükséges környezeti változókat (PORT=5000).
+
+Indítsd el a szervert TypeScript-ből:
+
+```
+npx ts-node-dev src/index.ts
+```
+
+A backend a .env fájlban megadott porton (5000) fog futni, tehát alapértelmezetten a http://localhost:5000 címen lesz elérhető.
+
+---
+
+### 3. Frontend indítása
+
+Navigálj a `frontend` mappába:
+
+```
+cd frontend
+```
+
+Telepítsd az Angular függőségeket:
+
+```
+npm install
+```
+
+Majd indítsd el a fejlesztői szervert:
+
+```
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Ezután a webalkalmazás elérhető a böngészőből: `http://localhost:4200`

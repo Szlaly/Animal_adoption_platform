@@ -52,7 +52,7 @@
     padding: 0.5rem 1.2rem;
     border: none;
     border-radius: 6px;
-    background-color: #28a745; // zöld
+    background-color: #28a745;
     color: white;
     font-size: 1rem;
     cursor: pointer;
@@ -125,20 +125,20 @@
   ul {
     max-width: 500px;
     width: 100%;
-    list-style: none; /* eltünteti a pontokat */
+    list-style: none; 
     padding: 0;
     margin: 0 auto;
     max-width: 500px;
-    text-align: left; /* balra igazítja a tartalmat */
+    text-align: left; 
   }
 
 
 
   li {
     max-width: 100%;
-    word-break: break-word; /* szó törése hosszú szavaknál */
-    overflow-wrap: break-word; /* kompatibilitás */
-    background-color: #e9f5ea; /* világos zöldes háttér */
+    word-break: break-word;
+    overflow-wrap: break-word;
+    background-color: #e9f5ea; 
     margin-bottom: 0.8rem;
     padding: 0.8rem 1rem;
     border-radius: 12px;
@@ -146,15 +146,15 @@
     font-size: 1rem;
     color: #2f4f2f;
     display: flex;
-    align-items: flex-start; /* ikon és szöveg igazítása */
+    align-items: flex-start; 
     gap: 0.5rem;
-    white-space: normal; /* hogy a hosszú szöveg törjön */
-    word-wrap: break-word; /* törje meg a szavakat ha kell */
+    white-space: normal; 
+    word-wrap: break-word; 
 
     &::before {
       content: "📝";
       font-size: 1.2rem;
-      margin-top: 0.2rem; /* kicsit lentebb az emoji, hogy jól nézzen ki */
+      margin-top: 0.2rem; 
     }
   }
 }

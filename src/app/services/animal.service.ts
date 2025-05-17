@@ -1,4 +1,4 @@
-// src/app/services/animal.service.ts
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -28,7 +28,7 @@ export class AnimalService {
     return this.http.get<Animal[]>(this.baseUrl);
   }
 addAnimal(animal: Animal, token: string): Observable<Animal> {
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); // Token hozzáadása a fejléchez
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); 
 
     return this.http.post<Animal>(this.baseUrl, animal, { headers });
   }
@@ -36,7 +36,6 @@ addAnimal(animal: Animal, token: string): Observable<Animal> {
   getAnimalById(id: string): Observable<Animal> {
     return this.http.get<Animal>(`${this.baseUrl}/${id}`);
   }
-  // src/app/services/animal.service.ts
 addToFavorites(animalId: string, token: string) {
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
   return this.http.post(`http://localhost:5000/api/users/favorites/${animalId}`, {}, { headers });
@@ -55,7 +54,7 @@ updateAnimal(id: string, updatedData: FormData): Observable<any> {
   const token = localStorage.getItem('token') || '';
   const headers = new HttpHeaders({
     Authorization: `Bearer ${token}`
-    // ⛔️ Ne adjunk meg 'Content-Type'-ot, ha FormData-t küldünk – a böngésző automatikusan beállítja.
+   
   });
 
   return this.http.put(`${this.baseUrl}/${id}`, updatedData, { headers });
@@ -69,7 +68,6 @@ deleteAnimal(id: string): Observable<any> {
 addAnimalWithImage(formData: FormData, token: string): Observable<Animal> {
   const headers = new HttpHeaders({
     'Authorization': `Bearer ${token}`
-    // Ne állíts be 'Content-Type'-ot, a böngésző automatikusan beállítja multipart/form-data-ra
   });
 
   return this.http.post<Animal>(this.baseUrl, formData, { headers });

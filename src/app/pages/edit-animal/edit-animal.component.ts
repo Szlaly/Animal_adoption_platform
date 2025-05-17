@@ -84,7 +84,7 @@ export class AnimalEditComponent implements OnInit {
     if (this.selectedFile) {
       formData.append('image', this.selectedFile);
     } else {
-      formData.append('imageUrl', this.currentImageUrl); // megtartjuk a régit, ha nincs új
+      formData.append('imageUrl', this.currentImageUrl); 
     }
 
     this.animalService.updateAnimal(this.animalId, formData).subscribe({

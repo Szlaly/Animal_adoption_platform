@@ -49,7 +49,6 @@ export class AddAnimalComponent {
   formData.append('description', this.animal.description);
   formData.append('health', this.animal.health);
   formData.append('story', this.animal.story);
-  // A likedBy tömb nem kell feltölteni itt, mert új állatnál üres
 
   if (this.selectedFile) {
     formData.append('image', this.selectedFile, this.selectedFile.name);

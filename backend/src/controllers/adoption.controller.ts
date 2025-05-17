@@ -6,8 +6,8 @@ import mongoose from "mongoose";
 export const getAllAdoptions = async (req: Request, res: Response) => {
   try {
     const adoptions = await Adoption.find()
-      .populate('user', 'name email')       // csak a name és email mezőket kérjük le
-      .populate('animal', 'name species');  // csak a name és species mezőket
+      .populate('user', 'name email')     
+      .populate('animal', 'name species');  
 
     res.json(adoptions);
   } catch (err) {

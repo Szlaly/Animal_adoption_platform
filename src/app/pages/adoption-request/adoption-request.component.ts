@@ -14,8 +14,8 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./adoption-request.component.scss']
 })
 export class AdoptionRequestComponent implements OnInit {
-  animals: Animal[] = []; // Állatok listája
-  animalId: string = ''; // Az állat ID-ja, amit a felhasználó választ
+  animals: Animal[] = [];
+  animalId: string = ''; 
   name: string = '';
   email: string = '';
   meetingDate: string = '';
@@ -30,7 +30,6 @@ export class AdoptionRequestComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  // Inicializáláskor lekérjük az állatok listáját
   ngOnInit() {
     this.fetchAnimals();
     const user = this.authService.currentUser;
@@ -42,7 +41,7 @@ export class AdoptionRequestComponent implements OnInit {
   fetchAnimals() {
     this.animalService.getAnimals().subscribe({
       next: (data) => {
-        this.animals = data; // Állatok listája
+        this.animals = data; 
       },
       error: (err) => {
         this.errorMessage = 'Nem sikerült betölteni az állatokat.';

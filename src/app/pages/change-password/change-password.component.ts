@@ -37,7 +37,6 @@ export class ChangePasswordComponent {
   const { currentPassword, newPassword } = this.form.value;
   console.log('Form értékek:', this.form.value);
   
-  // 🔁 Itt küldjük át oldPassword helyett currentPassword néven
   this.authService.changePassword(currentPassword, newPassword, token).subscribe({
     next: () => {
       this.message = 'Jelszó sikeresen megváltoztatva.';
