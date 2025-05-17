@@ -11,7 +11,7 @@
   <div *ngFor="let request of adoptionRequests" class="adoption-card">
     <p><strong>Állat:</strong> {{ request.animal?.name || 'Ismeretlen állat' }}</p>
     <p><strong>Faj:</strong> {{ request.animal?.species || '-' }}</p>
-    <p><strong>Jelentkező:</strong> {{ request?.name }}</p>
+    <p><strong>Jelentkező:</strong> {{ request.name }}</p>
     <p><strong>Email:</strong> {{ request.user?.email }}</p>
     <p><strong>Üzenet:</strong> {{ request?.message || '-' }}</p>
     <p><strong>Státusz:</strong> {{ request?.status }}</p>

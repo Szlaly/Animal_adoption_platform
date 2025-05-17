@@ -47,7 +47,7 @@
   <h2>Elérhető állatok</h2>
   <div class="animal-list">
     <div class="animal-card" *ngFor="let animal of animals | slice:0:3">
-      <img [src]="animal.image || 'https://placekitten.com/300/200'" [alt]="animal.name" />
+      <img [src]="'http://localhost:5000' + animal.imageUrl" alt="{{animal.name}}">
       <h3>{{ animal.name }}</h3>
       <p>{{ animal.age }} éves {{ animal.species }}, {{ animal.description }}</p>
       <button (click)="viewDetails(animal._id)">Részletek</button>

@@ -26,7 +26,6 @@ export class LoginComponent {
       next: (res) => {
         localStorage.setItem('token', res.token);
         
-        console.log('Bejelentkezve! A token:', localStorage.getItem('token'));
         
         this.message = 'Sikeres bejelentkezés!';
         this.router.navigate(['/']);
