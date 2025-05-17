@@ -87,7 +87,7 @@ cd backend
 Telepítsd a szükséges csomagokat:
 
 ```
-npm install cors
+npm i --save-dev @types/cors
 npm install multer
 ```
 
