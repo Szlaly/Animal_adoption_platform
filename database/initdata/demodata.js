@@ -11,25 +11,25 @@ db.users.insertMany([
   {
     name: "Admin Felhasználó 2",
     email: "admin2@menhely.hu",
-    password: "$2b$10$vIc1S5vPn4PCzp7bb3/U7ev5duLx0VjMY0akq6ODQWlhq3imXUzDu", // admin234
+    password: "$2b$10$mMr1Vg/JYFSNnwS9MqjmNOVVRrlkoczvhc13L.NJn4aD4BRUB2CvW", // admin234
     role: "admin"
   },
   {
     name: "Admin Felhasználó 3",
     email: "admin3@menhely.hu",
-    password: "$2b$10$WLD4ZBdwRNgm5ix/I4kGZeOGieqL7X87rmlJe7uXc5v6yxQSE6sJi", // admin345
+    password: "$2b$10$7rBSPsoTAM/VTMAbQXDd6u7ZittxWgBWmCJ/Eoz8gQ2dd5voVtfOW", // admin345
     role: "admin"
   },
   {
     name: "Sima Felhasználó 1",
     email: "user1@menhely.hu",
-    password: "$$2b$10$ksyrfJpl3FoMPGp2A.JPpuUoHwEnQ0SpN/NfVhW35xq.Tv0z0zI1C", // user123 
+    password: "$2b$10$vnpC.et2fd1vTwV3I8tWDeyw3hu4PXxD7nGaXr4LegbEPNi5ogjRi", // user123 
     role: "user"
   },
   {
     name: "Sima Felhasználó 2",
     email: "user2@menhely.hu",
-    password: "$2b$10$YxXQyHb0Oe2r1CxEtN22JOTqPEu2x4Os1VtLMN8vXr2LrTLGJQW.u", // user234
+    password: "$2b$10$2d5b53hyuP/xB3F4i7hCpuUwfBTfW1TIH22B12JO9aq.bWva2JTTe", // user234
     role: "user"
   }
 ]);
@@ -43,7 +43,7 @@ db.animals.insertMany([
     description: "Barátságos, aktív kutya.",
     health: "oltva, féregtelenítve",
     likedBy: [],
-    imageUrl: "https://placedog.net/300/200?id=1",
+    imageUrl: "http://localhost:5000/uploads/bodri.jpg",
     story: "Bodri egy hűséges családi kedvenc, aki imád játszani a gyerekekkel."
   },
   {
@@ -54,7 +54,7 @@ db.animals.insertMany([
     description: "Csendes, dorombolós cica.",
     health: "oltva",
     likedBy: [],
-    imageUrl: "https://placekitten.com/300/200",
+    imageUrl: "http://localhost:5000/uploads/cirmi.jpg",
     story: "Cirmi a menhely csendes lelke, aki mindig a napos ablakban alszik."
   },
   {
@@ -65,7 +65,7 @@ db.animals.insertMany([
     description: "Puha szőrű, játékos nyuszi.",
     health: "oltva",
     likedBy: [],
-    imageUrl: "https://placebear.com/300/200", 
+    imageUrl: "http://localhost:5000/uploads/nyuszi.jpg", 
     story: "Nyuszi szereti a répát és a simogatást."
   },
   {
@@ -76,7 +76,7 @@ db.animals.insertMany([
     description: "Barátságos és energikus labrador.",
     health: "oltva, féregtelenítve",
     likedBy: [],
-    imageUrl: "https://placedog.net/300/200?id=2",
+    imageUrl: "http://localhost:5000/uploads/luna.jpg",
     story: "Luna imád a parkban futni és labdázni."
   },
   {
@@ -87,7 +87,7 @@ db.animals.insertMany([
     description: "Elegáns perzsa macska.",
     health: "oltva",
     likedBy: [],
-    imageUrl: "https://placekitten.com/301/201",
+    imageUrl: "http://localhost:5000/uploads/mici.jpg",
     story: "Mici a menhely királynője, nagyon öntörvényű."
   },
   {
@@ -98,7 +98,7 @@ db.animals.insertMany([
     description: "Nagy termetű, nyugodt nyúl.",
     health: "oltva",
     likedBy: [],
-    imageUrl: "https://placebear.com/301/201",
+    imageUrl: "http://localhost:5000/uploads/fules.jpg",
     story: "Füles imádja, ha a kertben ugrálhat."
   },
   {
@@ -109,7 +109,7 @@ db.animals.insertMany([
     description: "Hűséges és okos németjuhász.",
     health: "oltva, féregtelenítve",
     likedBy: [],
-    imageUrl: "https://placedog.net/300/200?id=3",
+    imageUrl: "http://localhost:5000/uploads/rex.jpg",
     story: "Rex a menhely őrzője, mindig résen van."
   },
   {
@@ -120,7 +120,7 @@ db.animals.insertMany([
     description: "Kedves és beszédes macska.",
     health: "oltva",
     likedBy: [],
-    imageUrl: "https://placekitten.com/302/202",
+    imageUrl: "http://localhost:5000/uploads/sziami.jpg",
     story: "Sziámi nagyon szelíd és igényli az emberi társaságot."
   },
   {
@@ -131,7 +131,7 @@ db.animals.insertMany([
     description: "Kicsi, bolyhos uszkár.",
     health: "oltva, féregtelenítve",
     likedBy: [],
-    imageUrl: "https://placedog.net/300/200?id=4",
+    imageUrl: "http://localhost:5000/uploads/panni.jpg",
     story: "Panni imád ugrálni és trükköket tanulni."
   },
   {
@@ -142,117 +142,7 @@ db.animals.insertMany([
     description: "Fiatal, játékos cica.",
     health: "oltva",
     likedBy: [],
-    imageUrl: "https://placekitten.com/303/203",
+    imageUrl: "http://localhost:5000/uploads/szoszke.jpg",
     story: "Szöszke mindig a legnagyobb kalandokra kész."
-  },
-  {
-    name: "Kormi",
-    age: 6,
-    species: "kutya",
-    breed: "keverék",
-    description: "Nyugodt, szerető családi kutya.",
-    health: "oltva",
-    likedBy: [],
-    imageUrl: "https://placedog.net/300/200?id=5",
-    story: "Kormi szeret napozni a kertben."
-  },
-  {
-    name: "Manci",
-    age: 3,
-    species: "macska",
-    breed: "rövidszőrű házi",
-    description: "Barátságos, dorombolós cica.",
-    health: "oltva",
-    likedBy: [],
-    imageUrl: "https://placekitten.com/304/204",
-    story: "Manci imádja a napfényt és az öleléseket."
-  },
-  {
-    name: "Nyafi",
-    age: 1,
-    species: "nyúl",
-    breed: "törpenyúl",
-    description: "Vidám és játékos nyuszi.",
-    health: "oltva",
-    likedBy: [],
-    imageUrl: "https://placebear.com/302/202",
-    story: "Nyafi imádja a friss zöldségeket."
-  },
-  {
-    name: "Buksi",
-    age: 4,
-    species: "kutya",
-    breed: "beagle",
-    description: "Kedves, kíváncsi kutya.",
-    health: "oltva, féregtelenítve",
-    likedBy: [],
-    imageUrl: "https://placedog.net/300/200?id=6",
-    story: "Buksi mindig szimatol a környéken."
-  },
-  {
-    name: "Cicó",
-    age: 5,
-    species: "macska",
-    breed: "maine coon",
-    description: "Nagy termetű, barátságos macska.",
-    health: "oltva",
-    likedBy: [],
-    imageUrl: "https://placekitten.com/305/205",
-    story: "Cicó imádja a hosszú alvásokat."
-  },
-  {
-    name: "Hopp",
-    age: 2,
-    species: "nyúl",
-    breed: "óriásnyúl",
-    description: "Gyors és fürge nyuszi.",
-    health: "oltva",
-    likedBy: [],
-    imageUrl: "https://placebear.com/303/203",
-    story: "Hopp nagyon szeret futkározni a kertben."
-  },
-  {
-    name: "Zara",
-    age: 3,
-    species: "kutya",
-    breed: "szetter",
-    description: "Elegáns, gyors kutya.",
-    health: "oltva, féregtelenítve",
-    likedBy: [],
-    imageUrl: "https://placedog.net/300/200?id=7",
-    story: "Zara szeret a mezőn szaladgálni."
-  },
-  {
-    name: "Nóri",
-    age: 2,
-    species: "macska",
-    breed: "házi",
-    description: "Szelíd, emberközpontú cica.",
-    health: "oltva",
-    likedBy: [],
-    imageUrl: "https://placekitten.com/306/206",
-    story: "Nóri imádja az emberi közelséget."
-  },
-  {
-    name: "Vuk",
-    age: 1,
-    species: "kutya",
-    breed: "keverék",
-    description: "Fiatal, játékos kutya.",
-    health: "oltva, féregtelenítve",
-    likedBy: [],
-    imageUrl: "https://placedog.net/300/200?id=8",
-    story: "Vuk imádja a labdázást és a simogatást."
-  },
-  {
-    name: "Lili",
-    age: 3,
-    species: "nyúl",
-    breed: "törpenyúl",
-    description: "Csendes és szelíd nyuszi.",
-    health: "oltva",
-    likedBy: [],
-    imageUrl: "https://placebear.com/304/204",
-    story: "Lili szeret csendben üldögélni a kertben."
   }
 ]);

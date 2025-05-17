@@ -78,7 +78,7 @@ docker run -d -p 27017:27017 --name menhely-mongo menhely-mongo-image
 
 ### 2. Backend indítása
 
-Navigálj a `backend` mappába:
+Navigálj a `backend` mappába a fő mappából:
 
 ```
 cd backend
@@ -104,13 +104,8 @@ A backend a .env fájlban megadott porton (5000) fog futni, tehát alapértelmez
 
 ### 3. Frontend indítása
 
-Navigálj a `frontend` mappába:
 
-```
-cd frontend
-```
-
-Telepítsd az Angular függőségeket:
+A fő mappában telepítsd az Angular függőségeket:
 
 ```
 npm install
