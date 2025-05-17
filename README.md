@@ -87,7 +87,8 @@ cd backend
 Telepítsd a szükséges csomagokat:
 
 ```
-npm install
+npm install cors
+npm install multer
 ```
 
 Győződj meg róla, hogy a .env fájl jelen van a backend mappában, és tartalmazza a szükséges környezeti változókat (PORT=5000).

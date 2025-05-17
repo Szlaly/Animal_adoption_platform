@@ -43,7 +43,7 @@ db.animals.insertMany([
     description: "Barátságos, aktív kutya.",
     health: "oltva, féregtelenítve",
     likedBy: [],
-    imageUrl: "http://localhost:5000/uploads/bodri.jpg",
+    imageUrl: "/uploads/bodri.jpg",
     story: "Bodri egy hűséges családi kedvenc, aki imád játszani a gyerekekkel."
   },
   {
@@ -54,7 +54,7 @@ db.animals.insertMany([
     description: "Csendes, dorombolós cica.",
     health: "oltva",
     likedBy: [],
-    imageUrl: "http://localhost:5000/uploads/cirmi.jpg",
+    imageUrl: "/uploads/cirmi.jpg",
     story: "Cirmi a menhely csendes lelke, aki mindig a napos ablakban alszik."
   },
   {
@@ -65,7 +65,7 @@ db.animals.insertMany([
     description: "Puha szőrű, játékos nyuszi.",
     health: "oltva",
     likedBy: [],
-    imageUrl: "http://localhost:5000/uploads/nyuszi.jpg", 
+    imageUrl: "/uploads/nyuszi.jpg", 
     story: "Nyuszi szereti a répát és a simogatást."
   },
   {
@@ -76,7 +76,7 @@ db.animals.insertMany([
     description: "Barátságos és energikus labrador.",
     health: "oltva, féregtelenítve",
     likedBy: [],
-    imageUrl: "http://localhost:5000/uploads/luna.jpg",
+    imageUrl: "/uploads/luna.jpg",
     story: "Luna imád a parkban futni és labdázni."
   },
   {
@@ -87,7 +87,7 @@ db.animals.insertMany([
     description: "Elegáns perzsa macska.",
     health: "oltva",
     likedBy: [],
-    imageUrl: "http://localhost:5000/uploads/mici.jpg",
+    imageUrl: "/uploads/mici.jpg",
     story: "Mici a menhely királynője, nagyon öntörvényű."
   },
   {
@@ -98,7 +98,7 @@ db.animals.insertMany([
     description: "Nagy termetű, nyugodt nyúl.",
     health: "oltva",
     likedBy: [],
-    imageUrl: "http://localhost:5000/uploads/fules.jpg",
+    imageUrl: "/uploads/fules.jpg",
     story: "Füles imádja, ha a kertben ugrálhat."
   },
   {
@@ -109,7 +109,7 @@ db.animals.insertMany([
     description: "Hűséges és okos németjuhász.",
     health: "oltva, féregtelenítve",
     likedBy: [],
-    imageUrl: "http://localhost:5000/uploads/rex.jpg",
+    imageUrl: "/uploads/rex.jpg",
     story: "Rex a menhely őrzője, mindig résen van."
   },
   {
@@ -120,7 +120,7 @@ db.animals.insertMany([
     description: "Kedves és beszédes macska.",
     health: "oltva",
     likedBy: [],
-    imageUrl: "http://localhost:5000/uploads/sziami.jpg",
+    imageUrl: "/uploads/sziami.jpg",
     story: "Sziámi nagyon szelíd és igényli az emberi társaságot."
   },
   {
@@ -131,7 +131,7 @@ db.animals.insertMany([
     description: "Kicsi, bolyhos uszkár.",
     health: "oltva, féregtelenítve",
     likedBy: [],
-    imageUrl: "http://localhost:5000/uploads/panni.jpg",
+    imageUrl: "/uploads/panni.jpg",
     story: "Panni imád ugrálni és trükköket tanulni."
   },
   {
@@ -142,7 +142,7 @@ db.animals.insertMany([
     description: "Fiatal, játékos cica.",
     health: "oltva",
     likedBy: [],
-    imageUrl: "http://localhost:5000/uploads/szoszke.jpg",
+    imageUrl: "/uploads/szoszke.jpg",
     story: "Szöszke mindig a legnagyobb kalandokra kész."
   }
 ]);
