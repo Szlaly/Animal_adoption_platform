@@ -1,6 +1,6 @@
-db = db.getSiblingDB('menhely'); // adatbázis kiválasztása vagy létrehozása
+db = db.getSiblingDB('menhely'); 
 
-// felhasználók
+
 db.users.insertMany([
   {
     name: "Admin Felhasználó 1",
@@ -11,30 +11,29 @@ db.users.insertMany([
   {
     name: "Admin Felhasználó 2",
     email: "admin2@menhely.hu",
-    password: "$2b$10$lyXAK6wVSVGi4MhFb746Qu8FKJYlaWofyImsRj1GvwWhF1BWLKKFC", // admin123
+    password: "$2b$10$vIc1S5vPn4PCzp7bb3/U7ev5duLx0VjMY0akq6ODQWlhq3imXUzDu", // admin234
     role: "admin"
   },
   {
     name: "Admin Felhasználó 3",
     email: "admin3@menhely.hu",
-    password: "$2b$10$lyXAK6wVSVGi4MhFb746Qu8FKJYlaWofyImsRj1GvwWhF1BWLKKFC", // admin123
+    password: "$2b$10$WLD4ZBdwRNgm5ix/I4kGZeOGieqL7X87rmlJe7uXc5v6yxQSE6sJi", // admin345
     role: "admin"
   },
   {
     name: "Sima Felhasználó 1",
     email: "user1@menhely.hu",
-    password: "$2b$10$lyXAK6wVSVGi4MhFb746Qu8FKJYlaWofyImsRj1GvwWhF1BWLKKFC", // admin123 (használhatod egységesen)
+    password: "$$2b$10$ksyrfJpl3FoMPGp2A.JPpuUoHwEnQ0SpN/NfVhW35xq.Tv0z0zI1C", // user123 
     role: "user"
   },
   {
     name: "Sima Felhasználó 2",
     email: "user2@menhely.hu",
-    password: "$2b$10$lyXAK6wVSVGi4MhFb746Qu8FKJYlaWofyImsRj1GvwWhF1BWLKKFC", // admin123
+    password: "$2b$10$YxXQyHb0Oe2r1CxEtN22JOTqPEu2x4Os1VtLMN8vXr2LrTLGJQW.u", // user234
     role: "user"
   }
 ]);
 
-// állatok
 db.animals.insertMany([
   {
     name: "Bodri",
@@ -66,7 +65,7 @@ db.animals.insertMany([
     description: "Puha szőrű, játékos nyuszi.",
     health: "oltva",
     likedBy: [],
-    imageUrl: "https://placebear.com/300/200", // nincs nyúl kép, placeholder
+    imageUrl: "https://placebear.com/300/200", 
     story: "Nyuszi szereti a répát és a simogatást."
   },
   {

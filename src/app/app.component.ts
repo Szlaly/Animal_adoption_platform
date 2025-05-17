@@ -14,7 +14,7 @@ export class AppComponent {
   title = 'Animal_Adopt_Proj';
 
   constructor(public authService: AuthService) {}
-
+  
   get navLinks() {
     const user = this.authService.currentUser;
     return [

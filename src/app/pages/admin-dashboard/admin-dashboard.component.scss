@@ -17,6 +17,8 @@
 
 .support-requests {
   margin-top: 30px;
+  max-width: 800px;
+  margin: 30px auto;
 }
 
 .support-request {
@@ -114,82 +116,14 @@ button:hover {
   gap: 10px;
   margin-top: 20px;
 }
-.closed-label {
-  font-weight: bold;
-  color: #28a745;
-  margin-top: 10px;
-}
-
 
 .reply-form textarea {
   width: 100%;
   min-height: 80px;
   resize: vertical;
-}
-
-.reply-form button {
-  align-self: flex-end;
-}
-
-
-.support-requests {
-  max-width: 800px;
-  margin: 30px auto;
-}
-
-.support-request {
-  margin-bottom: 30px;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-}
-
-.messages {
-  margin: 10px 0;
-  max-height: 250px;
-  overflow-y: auto;
-  border: 1px solid #ccc;
   padding: 10px;
-  background: #fff;
+  font-size: 1rem;
   border-radius: 8px;
-}
-
-.own-message {
-  text-align: right;
-  background-color: #dcf8c6;
-  padding: 8px;
-  margin: 8px 0;
-  border-radius: 10px;
-}
-
-.other-message {
-  text-align: left;
-  background-color: #eee;
-  padding: 8px;
-  margin: 8px 0;
-  border-radius: 10px;
-}
-
-.timestamp {
-  font-size: 0.8rem;
-  color: #666;
-  text-align: right;
-}
-
-.reply-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.reply-form textarea {
-  width: 100%;
-  min-height: 60px;
-  resize: vertical;
-  padding: 8px;
-  border-radius: 6px;
   border: 1px solid #ccc;
 }
 
@@ -205,4 +139,78 @@ button:hover {
 
 .reply-form button:hover {
   background-color: #0056b3;
+}
+
+.closed-label {
+  font-weight: bold;
+  color: #28a745;
+  margin-top: 10px;
+}
+
+.adoption-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 30px;
+  background-color: #f9f9f9;
+}
+
+.adoption-card p {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.adoption-card label {
+  font-weight: bold;
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.adoption-card input[type="datetime-local"] {
+  width: 100%;
+  max-width: 300px;
+  padding: 8px;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.adoption-card button {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.support-request textarea {
+  width: 100%;
+  min-height: 100px;
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: vertical;
+}
+
+.support-request button,
+.support-request .close-button {
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  margin-right: 10px;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+.support-request button:hover,
+.support-request .close-button:hover {
+  background-color: #388e3c;
 }

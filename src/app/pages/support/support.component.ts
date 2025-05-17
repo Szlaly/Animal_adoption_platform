@@ -69,29 +69,30 @@ export class SupportComponent implements OnInit {
   }
 
   sendReply(requestId: string) {
-    const token = localStorage.getItem('token');
-    if (!token) return;
+  const token = localStorage.getItem('token');
+  if (!token) return;
 
-    const request = this.supportRequests.find(r => r._id === requestId);
-    if (!request || request.status) {
-      console.warn('Ez a kérés le van zárva, nem lehet válaszolni.');
-      return;
-    }
-
-    const message = this.newMessages[requestId];
-    if (!message || !message.trim()) return;
-
-    this.supportService.addReplyToSupportRequest(requestId, message.trim(), token).subscribe({
-      next: (updatedRequest) => {
-        const index = this.supportRequests.findIndex(r => r._id === updatedRequest._id);
-        if (index !== -1) {
-          this.supportRequests[index] = updatedRequest;
-        }
-        this.newMessages[requestId] = '';
-      },
-      error: (err) => console.error('Válasz küldés hiba:', err)
-    });
+  const request = this.supportRequests.find(r => r._id === requestId);
+  if (!request || request.status === 'closed') {
+    console.warn('Ez a kérés le van zárva, nem lehet válaszolni.');
+    return;
   }
+
+  const message = this.newMessages[requestId];
+  if (!message || !message.trim()) return;
+
+  this.supportService.addReplyToSupportRequest(requestId, message.trim(), token).subscribe({
+    next: (updatedRequest) => {
+      const index = this.supportRequests.findIndex(r => r._id === updatedRequest._id);
+      if (index !== -1) {
+        this.supportRequests[index] = updatedRequest;
+      }
+      this.newMessages[requestId] = '';
+    },
+    error: (err) => console.error('Válasz küldés hiba:', err)
+  });
+}
+
 
   isOwnMessage(senderId: string): boolean {
     return this.user && this.user._id === senderId;

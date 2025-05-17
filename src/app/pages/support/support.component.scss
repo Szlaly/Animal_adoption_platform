@@ -63,7 +63,7 @@
 .reply-form button {
   align-self: flex-end;
   padding: 8px 16px;
-  background-color: #007bff;
+   background-color: #28a745;
   border: none;
   border-radius: 6px;
   color: white;
@@ -71,7 +71,7 @@
 }
 
 .reply-form button:hover {
-  background-color: #0056b3;
+  background-color: #218838;
 }
 .support-form {
   display: flex;
@@ -101,4 +101,26 @@
   }
   
 }
+
+.support-form select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #fff;
+  color: #333;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23666' d='M2 0L0 2h4L2 0zM2 5l2-2H0l2 2z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px;
+}
+
+.support-form input,
+.support-form textarea,
+.support-form select {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 

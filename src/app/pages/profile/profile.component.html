@@ -2,14 +2,20 @@
   <h2>👤 Profilom</h2>
 
   <div class="user-info" *ngIf="user">
-    <p><strong>Név:</strong> {{ user.name }}</p>
-    <p><strong>Email:</strong> {{ user.email || 'N/A' }}</p>
-    <p><strong>Szerepkör:</strong> {{ user.role }}</p>
-    <button (click)="showChangePassword = !showChangePassword" class="save-btn">
-  Jelszó módosítása
-</button>
-<app-change-password *ngIf="showChangePassword"></app-change-password>
-  </div>
+  <p><strong>Név:</strong> {{ user.name }}</p>
+  <p><strong>Email:</strong> {{ user.email || 'N/A' }}</p>
+  <p><strong>Szerepkör:</strong> {{ user.role }}</p>
+
+  <button (click)="showChangePassword = !showChangePassword" class="save-btn">
+    Jelszó módosítása
+  </button>
+
+  <app-change-password *ngIf="showChangePassword"></app-change-password>
+
+  <button (click)="confirmDelete()" class="delete-btn" style="margin-top: 1rem;">
+    Fiók törlése
+  </button>
+</div>
 
   <div class="favorites">
     <h3>❤️ Kedvenc állataim</h3>
@@ -39,9 +45,4 @@
       <p class="empty-message">Még nem küldtél be örökbefogadási kérelmet.</p>
     </ng-template>
   </div>
-</div>
-
-<div class="account-actions">
-  <h3>⚠️ Fiók műveletek</h3>
-  <button (click)="confirmDelete()" class="delete-btn">Fiók törlése</button>
 </div>
